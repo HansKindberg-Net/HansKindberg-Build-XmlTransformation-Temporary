@@ -25,12 +25,12 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 			return Configuration.Release;
 		}
 
-		protected virtual string GetPackageDirectory(Configuration configuration)
+		public virtual string GetPublishDirectory(Configuration configuration)
 		{
 			return Path.Combine(this.ProjectDirectory, string.Format(CultureInfo.InvariantCulture, @"obj\{0}\Package\PackageTmp\", configuration));
 		}
 
-		public virtual IPublishResult Publish(PublishProfile publishProfile)
+		public virtual IBuildLog Publish(PublishProfile publishProfile)
 		{
 			var globalProperties = new Dictionary<string, string>
 			{
@@ -43,13 +43,7 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 			//globalProperties.Add("FilesToIncludeForPublish", "OnlyFilesToRunTheApp");
 			//globalProperties.Add("PackageAsSingleFile", "True");
 
-			var configuration = this.GetConfiguration(publishProfile);
-
-			return new PublishResult
-			{
-				BuildLog = this.Build(this.GetConfiguration(publishProfile), globalProperties),
-				PackageDirectory = this.GetPackageDirectory(configuration)
-			};
+			return this.Build(this.GetConfiguration(publishProfile), globalProperties);
 		}
 
 		#endregion

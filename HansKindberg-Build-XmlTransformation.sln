@@ -36,8 +36,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg-Build-XmlTransformation", "HansKindberg-Build-XmlTransformation\HansKindberg-Build-XmlTransformation.csproj", "{B532BF45-EFB9-44AB-AAAB-3A8222FEB52F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg.Build.XmlTransformation.WebApplication", "HansKindberg.Build.XmlTransformation.WebApplication\HansKindberg.Build.XmlTransformation.WebApplication.csproj", "{AD5A2460-AA48-4D24-B22B-B482E11513A9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B532BF45-EFB9-44AB-AAAB-3A8222FEB52F} = {B532BF45-EFB9-44AB-AAAB-3A8222FEB52F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg.Build.XmlTransformation.ConsoleApplication", "HansKindberg.Build.XmlTransformation.ConsoleApplication\HansKindberg.Build.XmlTransformation.ConsoleApplication.csproj", "{B91AEB2F-A9EC-4AF9-A8D9-912D5208FAEA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B532BF45-EFB9-44AB-AAAB-3A8222FEB52F} = {B532BF45-EFB9-44AB-AAAB-3A8222FEB52F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg.Build.XmlTransformation.IntegrationTests", "HansKindberg.Build.XmlTransformation.IntegrationTests\HansKindberg.Build.XmlTransformation.IntegrationTests.csproj", "{37E85439-2726-464C-A9D9-8481E2909005}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -55,6 +61,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Publish", "Publish", "{8E22
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg.Build.XmlTransformation.ClassLibrary", "HansKindberg.Build.XmlTransformation.ClassLibrary\HansKindberg.Build.XmlTransformation.ClassLibrary.csproj", "{6CD26D38-C55B-4C12-BC56-F71275ED0D88}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B532BF45-EFB9-44AB-AAAB-3A8222FEB52F} = {B532BF45-EFB9-44AB-AAAB-3A8222FEB52F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -136,9 +136,14 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 			return this.Build(null, globalProperties);
 		}
 
+		public virtual IBuildLog Build(Configuration configuration, LoggerVerbosity loggerVerbosity)
+		{
+			return this.Build(configuration, new Dictionary<string, string>(), loggerVerbosity);
+		}
+
 		protected virtual IBuildLog Build(Configuration? configuration, IDictionary<string, string> globalProperties)
 		{
-			return this.Build(configuration, globalProperties, LoggerVerbosity.Detailed);
+			return this.Build(configuration, globalProperties, LoggerVerbosity.Minimal);
 		}
 
 		protected virtual IBuildLog Build(Configuration? configuration, IDictionary<string, string> globalProperties, LoggerVerbosity loggerVerbosity)
@@ -180,6 +185,11 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 			{
 				this.RemoveDirectory(Path.Combine(this.ProjectDirectory, outputDirectory));
 			}
+		}
+
+		public virtual string GetOutputDirectory(Configuration configuration)
+		{
+			return Path.Combine(this.ProjectDirectory, "bin", configuration.ToString());
 		}
 
 		protected virtual void RemoveDirectory(string path)
