@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<ClassLibraryName Condition="$(ClassLibraryName) == ''">ClassLibrary</ClassLibraryName>
+		<CodeAnalysisDirectoryName Condition="$(CodeAnalysisDirectoryName) == ''">CodeAnalysis</CodeAnalysisDirectoryName>
+		<ConsoleApplicationName Condition="$(ConsoleApplicationName) == ''">ConsoleApplication</ConsoleApplicationName>
+		<MessageImportance Condition="$(MessageImportance) == ''">High</MessageImportance>
+		<NuGetDirectoryName Condition="$(NuGetDirectoryName) == ''">.nuget</NuGetDirectoryName>
+		<NuGetPackagesDirectoryName Condition="$(NuGetPackagesDirectoryName) == ''">packages</NuGetPackagesDirectoryName>
+		<PropertiesDirectoryName Condition="$(PropertiesDirectoryName) == ''">Properties</PropertiesDirectoryName>
+		<SigningDirectoryName Condition="$(SigningDirectoryName) == ''">Signing</SigningDirectoryName>
+		<TestApplicationsDirectory Condition="$(TestApplicationsDirectory) == ''">$(SolutionDir)Test-Applications\</TestApplicationsDirectory>
+		<TestSourceDirectoryPrefix Condition="$(TestSourceDirectoryPrefix) == ''">HansKindberg.Build.XmlTransformation.</TestSourceDirectoryPrefix>
+		<WebApplicationName Condition="$(WebApplicationName) == ''">WebApplication</WebApplicationName>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ClassLibraryDirectory Condition="$(ClassLibraryDirectory) == ''">$(TestApplicationsDirectory)$(ClassLibraryName)\</ClassLibraryDirectory>
+		<CodeAnalysisDirectory Condition="$(CodeAnalysisDirectory) == ''">$(TestApplicationsDirectory)$(CodeAnalysisDirectoryName)\</CodeAnalysisDirectory>
+		<CodeAnalysisSourceDirectory Condition="$(CodeAnalysisSourceDirectory) == ''">$(SolutionDir)$(CodeAnalysisDirectoryName)\</CodeAnalysisSourceDirectory>
+		<ClassLibrarySourceDirectory Condition="$(ClassLibrarySourceDirectory) == ''">$(SolutionDir)$(TestSourceDirectoryPrefix)$(ClassLibraryName)\</ClassLibrarySourceDirectory>
+		<ConsoleApplicationDirectory Condition="$(ConsoleApplicationDirectory) == ''">$(TestApplicationsDirectory)$(ConsoleApplicationName)\</ConsoleApplicationDirectory>
+		<ConsoleApplicationSourceDirectory Condition="$(ConsoleApplicationSourceDirectory) == ''">$(SolutionDir)$(TestSourceDirectoryPrefix)$(ConsoleApplicationName)\</ConsoleApplicationSourceDirectory>
+		<NuGetDirectory Condition="$(NuGetDirectory) == ''">$(TestApplicationsDirectory)$(NuGetDirectoryName)\</NuGetDirectory>
+		<NuGetPackagesDirectory Condition="$(NuGetPackagesDirectory) == ''">$(TestApplicationsDirectory)$(NuGetPackagesDirectoryName)\</NuGetPackagesDirectory>
+		<NuGetPackagesSourceDirectory Condition="$(NuGetPackagesSourceDirectory) == ''">$(SolutionDir)$(NuGetPackagesDirectoryName)\</NuGetPackagesSourceDirectory>
+		<NuGetSourceDirectory Condition="$(NuGetSourceDirectory) == ''">$(SolutionDir)$(NuGetDirectoryName)\</NuGetSourceDirectory>
+		<PropertiesDirectory Condition="$(PropertiesDirectory) == ''">$(TestApplicationsDirectory)$(PropertiesDirectoryName)\</PropertiesDirectory>
+		<PropertiesSourceDirectory Condition="$(PropertiesSourceDirectory) == ''">$(SolutionDir)$(PropertiesDirectoryName)\</PropertiesSourceDirectory>
+		<SigningDirectory Condition="$(SigningDirectory) == ''">$(TestApplicationsDirectory)$(SigningDirectoryName)\</SigningDirectory>
+		<SigningSourceDirectory Condition="$(SigningSourceDirectory) == ''">$(SolutionDir)$(SigningDirectoryName)\</SigningSourceDirectory>
+		<WebApplicationDirectory Condition="$(WebApplicationDirectory) == ''">$(TestApplicationsDirectory)$(WebApplicationName)\</WebApplicationDirectory>
+		<WebApplicationSourceDirectory Condition="$(WebApplicationSourceDirectory) == ''">$(SolutionDir)$(TestSourceDirectoryPrefix)$(WebApplicationName)\</WebApplicationSourceDirectory>
+	</PropertyGroup>
+</Project>

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<BuildDependsOn>
+			$(BuildDependsOn);
+			DeployTestApplications;
+		</BuildDependsOn>
+	</PropertyGroup>
+	<Target Name="DeployClassLibrary">
+		<ItemGroup>
+			<ClassLibraryFile Include="$(ClassLibrarySourceDirectory)**\*.*" Exclude="$(ClassLibrarySourceDirectory)bin\**\*.*;$(ClassLibrarySourceDirectory)obj\**\*.*" />
+		</ItemGroup>
+		<Copy
+			Condition="Exists('$(ClassLibrarySourceDirectory)')"
+			DestinationFiles="@(ClassLibraryFile->'$(ClassLibraryDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
+			SourceFiles="@(ClassLibraryFile)"
+		/>
+		<Message
+			Condition="Exists('$(ClassLibrarySourceDirectory)')"
+			Importance="$(MessageImportance)"
+			Text="Copying content from '$(ClassLibrarySourceDirectory)' to '$(ClassLibraryDirectory)'."
+		/>
+	</Target>
+	<Target Name="DeployCodeAnalysis">
+		<ItemGroup>
+			<CodeAnalysisFile Include="$(CodeAnalysisSourceDirectory)**\*.*" />
+		</ItemGroup>
+		<Copy
+			Condition="Exists('$(CodeAnalysisSourceDirectory)')"
+			DestinationFiles="@(CodeAnalysisFile->'$(CodeAnalysisDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
+			SourceFiles="@(CodeAnalysisFile)"
+		/>
+		<Message
+			Condition="Exists('$(CodeAnalysisSourceDirectory)')"
+			Importance="$(MessageImportance)"
+			Text="Copying content from '$(CodeAnalysisSourceDirectory)' to '$(CodeAnalysisDirectory)'."
+		/>
+	</Target>
+	<Target Name="DeployConsoleApplication">
+		<ItemGroup>
+			<ConsoleApplicationFile Include="$(ConsoleApplicationSourceDirectory)**\*.*" Exclude="$(ConsoleApplicationSourceDirectory)bin\**\*.*;$(ConsoleApplicationSourceDirectory)obj\**\*.*" />
+		</ItemGroup>
+		<Copy
+			Condition="Exists('$(ConsoleApplicationSourceDirectory)')"
+			DestinationFiles="@(ConsoleApplicationFile->'$(ConsoleApplicationDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
+			SourceFiles="@(ConsoleApplicationFile)"
+		/>
+		<Message
+			Condition="Exists('$(ConsoleApplicationSourceDirectory)')"
+			Importance="$(MessageImportance)"
+			Text="Copying content from '$(ConsoleApplicationSourceDirectory)' to '$(ConsoleApplicationDirectory)'."
+		/>
+	</Target>
+	<Target Name="DeployNuGet">
+		<ItemGroup>
+			<NuGetFile Include="$(NuGetSourceDirectory)**\*.*" />
+		</ItemGroup>
+		<Copy
+			Condition="Exists('$(NuGetSourceDirectory)')"
+			DestinationFiles="@(NuGetFile->'$(NuGetDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
+			SourceFiles="@(NuGetFile)"
+		/>
+		<Message
+			Condition="Exists('$(NuGetSourceDirectory)')"
+			Importance="$(MessageImportance)"
+			Text="Copying content from '$(NuGetSourceDirectory)' to '$(NuGetDirectory)'."
+		/>
+	</Target>
+	<Target Name="DeployNuGetPackages">
+		<ItemGroup>
+			<NuGetPackagesFile Include="$(NuGetPackagesSourceDirectory)**\*.*" />
+		</ItemGroup>
+		<Copy
+			Condition="Exists('$(NuGetPackagesSourceDirectory)')"
+			DestinationFiles="@(NuGetPackagesFile->'$(NuGetPackagesDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
+			SourceFiles="@(NuGetPackagesFile)"
+		/>
+		<Message
+			Condition="Exists('$(NuGetPackagesSourceDirectory)')"
+			Importance="$(MessageImportance)"
+			Text="Copying content from '$(NuGetPackagesSourceDirectory)' to '$(NuGetPackagesDirectory)'."
+		/>
+	</Target>
+	<Target Name="DeployProperties">
+		<ItemGroup>
+			<PropertiesFile Include="$(PropertiesSourceDirectory)**\*.*" />
+		</ItemGroup>
+		<Copy
+			Condition="Exists('$(PropertiesSourceDirectory)')"
+			DestinationFiles="@(PropertiesFile->'$(PropertiesDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
+			SourceFiles="@(PropertiesFile)"
+		/>
+		<Message
+			Condition="Exists('$(PropertiesSourceDirectory)')"
+			Importance="$(MessageImportance)"
+			Text="Copying content from '$(PropertiesSourceDirectory)' to '$(PropertiesDirectory)'."
+		/>
+	</Target>
+	<Target Name="DeploySigning">
+		<ItemGroup>
+			<SigningFile Include="$(SigningSourceDirectory)**\*.*" />
+		</ItemGroup>
+		<Copy
+			Condition="Exists('$(SigningSourceDirectory)')"
+			DestinationFiles="@(SigningFile->'$(SigningDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
+			SourceFiles="@(SigningFile)"
+		/>
+		<Message
+			Condition="Exists('$(SigningSourceDirectory)')"
+			Importance="$(MessageImportance)"
+			Text="Copying content from '$(SigningSourceDirectory)' to '$(SigningDirectory)'."
+		/>
+	</Target>
+	<Target Name="DeployWebApplication">
+		<ItemGroup>
+			<WebApplicationFile Include="$(WebApplicationSourceDirectory)**\*.*" Exclude="$(WebApplicationSourceDirectory)bin\**\*.*;$(WebApplicationSourceDirectory)obj\**\*.*" />
+		</ItemGroup>
+		<Copy
+			Condition="Exists('$(WebApplicationSourceDirectory)')"
+			DestinationFiles="@(WebApplicationFile->'$(WebApplicationDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
+			SourceFiles="@(WebApplicationFile)"
+		/>
+		<Message
+			Condition="Exists('$(WebApplicationSourceDirectory)')"
+			Importance="$(MessageImportance)"
+			Text="Copying content from '$(WebApplicationSourceDirectory)' to '$(WebApplicationDirectory)'."
+		/>
+	</Target>
+	<PropertyGroup>
+		<DeployTestApplicationsDependsOn>
+			DeployClassLibrary;
+			DeployCodeAnalysis;
+			DeployConsoleApplication;
+			DeployNuGet;
+			DeployNuGetPackages;
+			DeployProperties;
+			DeploySigning;
+			DeployWebApplication;
+		</DeployTestApplicationsDependsOn>
+	</PropertyGroup>
+	<Target Name="DeployTestApplications" DependsOnTargets="$(DeployTestApplicationsDependsOn)" />
+</Project>
