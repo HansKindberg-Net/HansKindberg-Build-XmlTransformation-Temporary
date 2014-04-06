@@ -73,6 +73,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C2C12052
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg-Build-XmlTransformation-Content", "HansKindberg-Build-XmlTransformation-Content\HansKindberg-Build-XmlTransformation-Content.csproj", "{4B89CE29-39A3-491F-A52D-C22187FED30C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{294A40C9-2E2F-4099-9E44-478725E47E41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SomePackage", "SomePackage", "{D3A15356-6A41-40F1-A852-B8A1AD321C15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{C1BBC010-ED7B-4A05-871D-72CC5FEDE4D1}"
+	ProjectSection(SolutionItems) = preProject
+		packages\SomePackage\Configuration\Web.Template.config = packages\SomePackage\Configuration\Web.Template.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,5 +115,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D3A15356-6A41-40F1-A852-B8A1AD321C15} = {294A40C9-2E2F-4099-9E44-478725E47E41}
+		{C1BBC010-ED7B-4A05-871D-72CC5FEDE4D1} = {D3A15356-6A41-40F1-A852-B8A1AD321C15}
 	EndGlobalSection
 EndGlobal

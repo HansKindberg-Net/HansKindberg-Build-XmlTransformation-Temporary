@@ -91,6 +91,13 @@
     </None>
     <None Include="Build\Build.props" />
     <None Include="Build\Build.targets" />
+    <None Include="WebApplication\Build\Build.Log.props" />
+    <None Include="WebApplication\Build\Build.Log.targets" />
+    <Content Include="WebApplication\Expected\Publish\Publish-Production-Web.config" />
+    <Content Include="WebApplication\Expected\Publish\Publish-Test-Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WebApplication\Expected\Build\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

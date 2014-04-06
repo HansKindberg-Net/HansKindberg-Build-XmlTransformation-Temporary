@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<LogMessageImportance Condition="$(LogMessageImportance) == ''">High</LogMessageImportance>
+	</PropertyGroup>
+	<ItemGroup Condition="@(XmlTransformationMap) == ''">
+		<XmlTransformationMap Include="Web.config">
+			<Source>$(SolutionDir)packages\SomePackage\Configuration\Web.Template.config</Source>
+		</XmlTransformationMap>
+		<XmlTransformationMap Include="Views\Web.config">
+			<Source></Source>
+		</XmlTransformationMap>
+		<XmlTransformationMap Include="Test\Web.config" />
+		<XmlTransformationMap Include="Does\Not\Exist\Some.xml" />
+		<!--
+		<XmlTransformationMap Include="Web.config">
+			<CommonBuildTransform>Web.Build.config</CommonBuildTransform>
+			<CommonPublishTransform>Web.Publish.config</CommonPublishTransform>
+			<Source>Web.Template.config</Source>
+		</XmlTransformationMap>
+		<XmlTransformationMap Include="Views\Web.config">
+			<CommonBuildTransform>Web.Build.config</CommonBuildTransform>
+			<CommonPublishTransform>Views\Web.Publish.config</CommonPublishTransform>
+			<Source></Source>
+		</XmlTransformationMap>
+		<XmlTransformationMap Include="Test\Web.config">
+			<CommonBuildTransform>Test\Web.Build.config</CommonBuildTransform>
+			<CommonPublishTransform>Test\Web.Publish.config</CommonPublishTransform>
+			<Source>Test\Web.Template.config</Source>
+		</XmlTransformationMap>
+		-->
+	</ItemGroup>
+</Project>

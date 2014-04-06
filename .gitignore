@@ -13,9 +13,9 @@ testresults/
 *.user
 .nuget/NuGet.exe
 
-HansKindberg-On-Build/Build/HansKindberg-On-Build.props
-HansKindberg-On-Build/Build/HansKindberg-On-Build.targets
+HansKindberg.Build.XmlTransformation.WebApplication/Web.config
 
 !packages/repositories.config
+!packages/SomePackage/Configuration/Web.Template.config
 !Publish/ReadMe.txt
 !Test-Applications/ReadMe.txt
