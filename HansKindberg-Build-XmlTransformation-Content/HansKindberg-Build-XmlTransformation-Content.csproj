@@ -5,11 +5,11 @@
 	<PropertyGroup>
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProjectGuid>{B532BF45-EFB9-44AB-AAAB-3A8222FEB52F}</ProjectGuid>
+		<ProjectGuid>{4B89CE29-39A3-491F-A52D-C22187FED30C}</ProjectGuid>
 		<OutputType>Library</OutputType>
 		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>HansKindberg.Build.XmlTransformation</RootNamespace>
-		<AssemblyName>HansKindberg-Build-XmlTransformation</AssemblyName>
+		<RootNamespace>HansKindberg_Build_XmlTransformation_Content</RootNamespace>
+		<AssemblyName>HansKindberg-Build-XmlTransformation-Content</AssemblyName>
 		<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
 		<FileAlignment>512</FileAlignment>
 	</PropertyGroup>
@@ -32,10 +32,16 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="Build\Build.props" />
-		<None Include="Build\Build.targets"/>
-		<None Include="Build\HansKindberg-Build-XmlTransformation.props" />
-		<None Include="Build\HansKindberg-Build-XmlTransformation.targets" />
-		<None Include="HansKindberg-Build-XmlTransformation.nuspec" />
+		<None Include="Build\Build.targets" />
+		<None Include="..\HansKindberg-Build-XmlTransformation\Build\HansKindberg-Build-XmlTransformation.props">
+			<Link>Build\HansKindberg-Build-XmlTransformation.props</Link>
+		</None>
+		<None Include="..\HansKindberg-Build-XmlTransformation\Build\HansKindberg-Build-XmlTransformation.targets">
+			<Link>Build\HansKindberg-Build-XmlTransformation.targets</Link>
+		</None>
+		<None Include="Content\HansKindberg-Build-XmlTransformation-Content-Dummy.txt" />
+		<None Include="Tools\Install.ps1" />
+		<None Include="HansKindberg-Build-XmlTransformation-Content.nuspec" />
 		<None Include="ReadMe.txt" />
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

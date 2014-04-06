@@ -65,6 +65,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg.Build.XmlTrans
 		{B532BF45-EFB9-44AB-AAAB-3A8222FEB52F} = {B532BF45-EFB9-44AB-AAAB-3A8222FEB52F}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C2C12052-5AED-462B-A6F6-0A584B515E37}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Package-Build.props = Build\Package-Build.props
+		Build\Package-Build.targets = Build\Package-Build.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg-Build-XmlTransformation-Content", "HansKindberg-Build-XmlTransformation-Content\HansKindberg-Build-XmlTransformation-Content.csproj", "{4B89CE29-39A3-491F-A52D-C22187FED30C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +99,10 @@ Global
 		{6CD26D38-C55B-4C12-BC56-F71275ED0D88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CD26D38-C55B-4C12-BC56-F71275ED0D88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CD26D38-C55B-4C12-BC56-F71275ED0D88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B89CE29-39A3-491F-A52D-C22187FED30C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B89CE29-39A3-491F-A52D-C22187FED30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B89CE29-39A3-491F-A52D-C22187FED30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B89CE29-39A3-491F-A52D-C22187FED30C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<authors>$Author$</authors>
+		<description>MSBuild code/targets for customized XML transformation.</description>
+		<id>$Id$</id>
+		<owners>$Author$</owners>
+		<projectUrl>https://github.com/HansKindberg-Net/HansKindberg-Build-XmlTransformation</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<title>$Id$</title>
+		<version>$Version$</version>
+	</metadata>
+	<files>
+		<file src="..\HansKindberg-Build-XmlTransformation\Build\HansKindberg-Build-XmlTransformation.*" target="build" />
+		<file src="Content\HansKindberg-Build-XmlTransformation-Content-Dummy.txt" target="content" />
+		<file src="Tools\Install.ps1" target="tools" />
+		<file src="ReadMe.txt" />
+	</files>
+</package>
