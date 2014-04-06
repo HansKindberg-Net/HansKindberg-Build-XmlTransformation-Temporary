@@ -16,6 +16,8 @@ testresults/
 HansKindberg.Build.XmlTransformation.WebApplication/Web.config
 
 !packages/repositories.config
-!packages/SomePackage/Configuration/Web.Template.config
+# To "negate" "packages/SomePackage/Configuration/Web.Template.config" we can not use "!packages/SomePackage/Configuration/Web.Template.config" we have to use "!packages/SomePackage/".
+# Read more about it here http://git-scm.com/docs/gitignore#_pattern_format, An optional prefix "!" which negates the pattern...
+!packages/SomePackage/
 !Publish/ReadMe.txt
 !Test-Applications/ReadMe.txt
