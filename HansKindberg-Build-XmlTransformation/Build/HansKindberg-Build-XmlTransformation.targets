@@ -1,4 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+	<PropertyGroup>
+		<BuildDependsOn>
+			$(BuildDependsOn);
+			Test;
+		</BuildDependsOn>
+	</PropertyGroup>
+	<Target Name="Test">
+		<Message
+			Importance="high"
+			Text="------------- TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST --------------------------"
+		/>
+		<!--
+		<Error
+			Text="ÄNDRAT - Feeeeeeeeeeeeeeeeeeel"
+		/>
+		-->
+	</Target>
 </Project>

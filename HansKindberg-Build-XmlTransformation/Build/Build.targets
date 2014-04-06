@@ -49,6 +49,9 @@
 		</DeployPackageContentToPackageDirectoryDependsOn>
 	</PropertyGroup>
 	<Target Name="DeployPackageContentToPackageDirectory" DependsOnTargets="$(DeployPackageContentToPackageDirectoryDependsOn)">
+		<RemoveDir
+			Directories="$(NuGetPackagesDirectory)$(MSBuildProjectName)"
+		/>
 		<Message
 			Importance="$(MessageImportance)"
 			Text="Installing package '$(MSBuildProjectName)' in '$(NuGetPackagesDirectory)'."

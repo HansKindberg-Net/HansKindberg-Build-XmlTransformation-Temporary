@@ -65,9 +65,9 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 			//Assert.IsNotNull(new WebApplicationProject());
 			//new WebApplicationProject().DeployForTest();
 
-			var publishResult = new WebApplicationProject().Publish(PublishProfile.Production);
+			var buildLog = new WebApplicationProject().Publish(PublishProfile.Production);
 
-			Assert.IsNotNull(publishResult);
+			Assert.IsNotNull(buildLog);
 
 			//Assert.Inconclusive("Message count: " + buildLog.Messages.Count());
 		}
