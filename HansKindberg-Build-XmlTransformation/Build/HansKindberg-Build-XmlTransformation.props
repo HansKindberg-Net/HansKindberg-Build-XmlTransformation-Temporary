@@ -35,4 +35,6 @@
 			<Source>%(RelativeDir)%(Filename).$(XmlTransformationSourceName)%(Extension)</Source>
 		</XmlTransformationMap>
 	</ItemDefinitionGroup>
+	<UsingTask AssemblyFile="HansKindberg.Build.XmlTransformation.Tasks.dll" TaskName="HansKindberg.Build.XmlTransformation.Tasks.CollectBuildTransformation" />
+	<UsingTask AssemblyFile="HansKindberg.Build.XmlTransformation.Tasks.dll" TaskName="HansKindberg.Build.XmlTransformation.Tasks.CollectPublishTransformation" />
 </Project>

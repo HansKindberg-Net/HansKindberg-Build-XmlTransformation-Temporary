@@ -11,8 +11,8 @@
 		<version>$Version$</version>
 	</metadata>
 	<files>
-		<file src="Build\HansKindberg-Build-XmlTransformation.props" target="build" />
-		<file src="Build\HansKindberg-Build-XmlTransformation.targets" target="build" />
+		<file src="Build\HansKindberg-Build-XmlTransformation.*" target="build" />
+		<file src="Build\*.dll" target="build" />
 		<file src="ReadMe.txt" />
 	</files>
 </package>

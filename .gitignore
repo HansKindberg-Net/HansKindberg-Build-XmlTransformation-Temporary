@@ -14,6 +14,7 @@ testresults/
 .nuget/NuGet.exe
 
 HansKindberg.Build.XmlTransformation.WebApplication/Web.config
+HansKindberg-Build-XmlTransformation/Build/*.dll
 
 !packages/repositories.config
 # To "negate" "packages/SomePackage/Configuration/Web.Template.config" we can not use "!packages/SomePackage/Configuration/Web.Template.config" we have to use "!packages/SomePackage/".
