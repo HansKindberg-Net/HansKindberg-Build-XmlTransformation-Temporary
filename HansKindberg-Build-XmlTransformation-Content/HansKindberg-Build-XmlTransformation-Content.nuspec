@@ -12,6 +12,7 @@
 	</metadata>
 	<files>
 		<file src="..\HansKindberg-Build-XmlTransformation\Build\HansKindberg-Build-XmlTransformation.*" target="build" />
+		<file src="..\HansKindberg-Build-XmlTransformation\Build\*.dll" target="build" />
 		<file src="Content\HansKindberg-Build-XmlTransformation-Content-Dummy.txt" target="content" />
 		<file src="Tools\Install.ps1" target="tools" />
 		<file src="ReadMe.txt" />

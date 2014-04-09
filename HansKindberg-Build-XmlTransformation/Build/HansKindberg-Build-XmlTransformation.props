@@ -9,17 +9,17 @@
 		<TransformWebConfigIntermediateOutput Condition="'$(TransformWebConfigIntermediateOutput)'==''">XmlTransformation</TransformWebConfigIntermediateOutput>
 		<WebApplicationProjectTypeGuid Condition="$(WebApplicationProjectTypeGuid) == ''">349c5851-65df-11da-9384-00065b846f21</WebApplicationProjectTypeGuid>
 		<XmlTransformationCommonBuildTransformName Condition="$(XmlTransformationCommonBuildTransformName) == ''">Build</XmlTransformationCommonBuildTransformName>
-		<XmlTransformationCommonBuildTransformErrorMessage Condition="$(XmlTransformationCommonBuildTransformErrorMessage) == ''">The common-build transform file &quot;{0}&quot; does not exist.</XmlTransformationCommonBuildTransformErrorMessage>
 		<XmlTransformationCommonPublishTransformName Condition="$(XmlTransformationCommonPublishTransformName) == ''">Publish</XmlTransformationCommonPublishTransformName>
-		<XmlTransformationCommonPublishTransformErrorMessage Condition="$(XmlTransformationCommonPublishTransformErrorMessage) == ''">The common-publish transform file &quot;{0}&quot; does not exist.</XmlTransformationCommonPublishTransformErrorMessage>
 		<!-- Output path to use for transformed App.config. -->
 		<XmlTransformationIntermediate Condition="$(XmlTransformationIntermediate) == ''">$(IntermediateOutputPath)XmlTransformation\</XmlTransformationIntermediate>
-		<XmlTransformationMapReferenceMessage Condition="$(XmlTransformationMapReferenceMessage) == ''">See the &quot;{0}&quot; metadata-property for the &quot;XmlTransformationMap&quot;-itemgroup with identity &quot;{1}&quot;.</XmlTransformationMapReferenceMessage>
 		<XmlTransformationSourceName Condition="$(XmlTransformationSourceName) == ''">Template</XmlTransformationSourceName>
-		<XmlTransformationSourceErrorMessage Condition="$(XmlTransformationSourceErrorMessage) == ''">The source file &quot;{0}&quot; does not exist.</XmlTransformationSourceErrorMessage>
 		<!-- Error, Message or Warning -->
 		<XmlTransformationValidationMode Condition="$(XmlTransformationValidationMode) == ''">Warning</XmlTransformationValidationMode>
-		<XmlTransformationWebApplicationSourceErrorMessage Condition="$(XmlTransformationWebApplicationSourceErrorMessage) == ''">The source must be specified for xml-transformation to work on a webapplication-project. The source can not be the same as the destination.</XmlTransformationWebApplicationSourceErrorMessage>
+	</PropertyGroup>
+	<PropertyGroup>
+		<MicrosoftWebPublishingTasksAssemblyFile Condition="$(MicrosoftWebPublishingTasksAssemblyFile) == ''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v12.0\Web\Microsoft.Web.Publishing.Tasks.dll</MicrosoftWebPublishingTasksAssemblyFile>
+		<MicrosoftWebPublishingTasksAssemblyFile Condition="!Exists('$(MicrosoftWebPublishingTasksAssemblyFile)')">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v11.0\Web\Microsoft.Web.Publishing.Tasks.dll</MicrosoftWebPublishingTasksAssemblyFile>
+		<MicrosoftWebPublishingTasksAssemblyFile Condition="!Exists('$(MicrosoftWebPublishingTasksAssemblyFile)')">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll</MicrosoftWebPublishingTasksAssemblyFile>
 	</PropertyGroup>
 	<ItemGroup Condition="@(XmlFileExtension) == ''">
 		<!-- Case-insensitive -->

@@ -12,6 +12,7 @@
     <AssemblyName>HansKindberg-Build-XmlTransformation</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +33,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="Build\Build.props" />
-    <None Include="Build\Build.targets" />
+    <None Include="Build\Build.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Build\HansKindberg-Build-XmlTransformation.props">
       <SubType>Designer</SubType>
     </None>
@@ -40,6 +43,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="HansKindberg-Build-XmlTransformation.nuspec" />
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

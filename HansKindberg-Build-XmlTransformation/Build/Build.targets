@@ -8,11 +8,48 @@
 		</BuildDependsOn>
 	</PropertyGroup>
 	<PropertyGroup>
+		<CreateNuGetPackageDependsOn>
+			$(CreateNuGetPackageDependsOn);
+			CopyReferencedAssemblies;
+		</CreateNuGetPackageDependsOn>
+	</PropertyGroup>
+	<PropertyGroup>
 		<DeployPackageContentToPackageDirectoryDependsOn>
 			CollectAssemblyInformation;
 		</DeployPackageContentToPackageDirectoryDependsOn>
 	</PropertyGroup>
+	<Target Name="CopyReferencedAssemblies">
+		<ItemGroup>
+			<AssemblyReference Include="$(HansKindbergBuildXmlTransformationTasksAssemblyFile)" />
+			<AssemblyReference Include="$(SystemIOAbstractionsAssemblyFile)" />
+		</ItemGroup>
+		<Copy
+			DestinationFolder="Build"
+			SourceFiles="@(AssemblyReference)"
+		/>
+		<Message
+			Importance="$(MessageImportance)"
+			Text="Copying '%(AssemblyReference.Identity)' to 'Build'."
+		/>
+	</Target>
 	<Target Name="DeployPackageContentToPackageDirectory" DependsOnTargets="$(DeployPackageContentToPackageDirectoryDependsOn)">
+		<PropertyGroup>
+			<_PackageDestinationFolder Condition="@(_PackageDestinationFolder) == ''">$(NuGetPackagesDirectory)HansKindberg-Build-XmlTransformation\build\</_PackageDestinationFolder>
+		</PropertyGroup>
+		<ItemGroup Condition="@(_PackageContent) == ''">
+			<_PackageContent Include="Build\HansKindberg-Build-XmlTransformation.*" />
+			<_PackageContent Condition="!Exists('$(_PackageDestinationFolder)HansKindberg.Build.XmlTransformation.Tasks.dll')" Include="Build\HansKindberg.Build.XmlTransformation.Tasks.dll" />
+			<_PackageContent Condition="!Exists('$(_PackageDestinationFolder)System.IO.Abstractions.dll')" Include="Build\System.IO.Abstractions.dll" />
+		</ItemGroup>
+		<Copy
+			DestinationFolder="$(_PackageDestinationFolder)"
+			SourceFiles="@(_PackageContent)"
+		/>
+		<Message
+			Importance="$(MessageImportance)"
+			Text="Copying package content '@(_PackageContent)' to '$(_PackageDestinationFolder)'."
+		/>
+		<!--
 		<RemoveDir
 			Directories="$(NuGetPackagesDirectory)$(MSBuildProjectName)"
 		/>
@@ -23,5 +60,6 @@
 		<Exec
 			Command='$(SolutionDir).nuget\NuGet.exe install $(MSBuildProjectName) -ExcludeVersion -NoCache -OutputDirectory $(NuGetPackagesDirectory) -Prerelease -Source $(TargetDir) -Verbosity "$(NuGetVerbosity)"'
 		/>
+		-->
 	</Target>
 </Project>
