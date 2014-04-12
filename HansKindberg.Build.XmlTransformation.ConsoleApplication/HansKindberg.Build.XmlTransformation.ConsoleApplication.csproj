@@ -51,22 +51,40 @@
 		<Compile Include="..\CodeAnalysis\SolutionSuppressions.cs">
 			<Link>CodeAnalysis\SolutionSuppressions.cs</Link>
 		</Compile>
+		<CodeAnalysisDictionary Include="..\CodeAnalysis\SolutionDictionary.xml">
+			<Link>CodeAnalysis\SolutionDictionary.xml</Link>
+		</CodeAnalysisDictionary>
+		<CodeAnalysisDictionary Include="CodeAnalysis\AssemblyDictionary.xml" />
+		<Compile Include="CodeAnalysis\AssemblySuppressions.cs" />
 		<Compile Include="..\Properties\Solution-AssemblyInfo.cs">
 			<Link>Properties\Solution-AssemblyInfo.cs</Link>
 		</Compile>
-		<Compile Include="CodeAnalysis\AssemblySuppressions.cs" />
 		<Compile Include="Program.cs" />
 		<Compile Include="Properties\AssemblyInfo.cs" />
 		<None Include="..\Signing\HansKindberg.snk">
 			<Link>HansKindberg.snk</Link>
 		</None>
-		<None Include="App.config" />
 		<None Include="Build\Build.props" />
 		<None Include="Build\Build.targets" />
-		<CodeAnalysisDictionary Include="..\CodeAnalysis\SolutionDictionary.xml">
-			<Link>CodeAnalysis\SolutionDictionary.xml</Link>
-		</CodeAnalysisDictionary>
-		<CodeAnalysisDictionary Include="CodeAnalysis\AssemblyDictionary.xml" />
+		<None Include="App.config" />
+		<None Include="App.Build.config">
+			<DependentUpon>App.config</DependentUpon>
+		</None>
+		<None Include="App.Debug.config">
+			<DependentUpon>App.Build.config</DependentUpon>
+		</None>
+		<None Include="App.Production.config">
+			<DependentUpon>App.Publish.config</DependentUpon>
+		</None>
+		<None Include="App.Publish.config">
+			<DependentUpon>App.config</DependentUpon>
+		</None>
+		<None Include="App.Release.config">
+			<DependentUpon>App.Build.config</DependentUpon>
+		</None>
+		<None Include="App.Test.config">
+			<DependentUpon>App.Publish.config</DependentUpon>
+		</None>
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 	<Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

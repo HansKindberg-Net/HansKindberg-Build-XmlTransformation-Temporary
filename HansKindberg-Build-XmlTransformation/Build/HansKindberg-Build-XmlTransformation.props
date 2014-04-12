@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
+		<!-- High, Normal or Low -->
 		<MessageImportance Condition="$(MessageImportance) == ''">High</MessageImportance>
 		<!-- To set a more suitable name for xml-transformation, not only web-config transformation. The original value is "ProfileTransformWebConfig". -->
 		<ProfileTransformWebConfigIntermediateOutput Condition="'$(ProfileTransformWebConfigIntermediateOutput)'==''">ProfileXmlTransformation</ProfileTransformWebConfigIntermediateOutput>
@@ -8,10 +9,14 @@
 		<!-- To set a more suitable name for xml-transformation, not only web-config transformation. The original value is "TransformWebConfig". -->
 		<TransformWebConfigIntermediateOutput Condition="'$(TransformWebConfigIntermediateOutput)'==''">XmlTransformation</TransformWebConfigIntermediateOutput>
 		<WebApplicationProjectTypeGuid Condition="$(WebApplicationProjectTypeGuid) == ''">349c5851-65df-11da-9384-00065b846f21</WebApplicationProjectTypeGuid>
-		<XmlTransformationCommonBuildTransformName Condition="$(XmlTransformationCommonBuildTransformName) == ''">Build</XmlTransformationCommonBuildTransformName>
-		<XmlTransformationCommonPublishTransformName Condition="$(XmlTransformationCommonPublishTransformName) == ''">Publish</XmlTransformationCommonPublishTransformName>
+		<XmlTransformationExcludeFilesDependentUpon Condition="$(XmlTransformationExcludeFilesDependentUpon) == ''">False</XmlTransformationExcludeFilesDependentUpon>
+		<XmlTransformationExcludeFilesDependentUponByFileName Condition="$(XmlTransformationExcludeFilesDependentUponByFileName) == ''">False</XmlTransformationExcludeFilesDependentUponByFileName>
+		<XmlTransformationGeneralBuildTransformName Condition="$(XmlTransformationGeneralBuildTransformName) == ''">Build</XmlTransformationGeneralBuildTransformName>
+		<XmlTransformationGeneralPublishTransformName Condition="$(XmlTransformationGeneralPublishTransformName) == ''">Publish</XmlTransformationGeneralPublishTransformName>
 		<!-- Output path to use for transformed App.config. -->
 		<XmlTransformationIntermediate Condition="$(XmlTransformationIntermediate) == ''">$(IntermediateOutputPath)XmlTransformation\</XmlTransformationIntermediate>
+		<!-- High, Normal or Low -->
+		<XmlTransformationLogImportance Condition="$(XmlTransformationLogImportance) == ''">High</XmlTransformationLogImportance>
 		<XmlTransformationSourceName Condition="$(XmlTransformationSourceName) == ''">Template</XmlTransformationSourceName>
 		<!-- Error, Message or Warning -->
 		<XmlTransformationValidationMode Condition="$(XmlTransformationValidationMode) == ''">Warning</XmlTransformationValidationMode>
@@ -29,8 +34,8 @@
 	</ItemGroup>
 	<ItemDefinitionGroup>
 		<XmlTransformationMap>
-			<CommonBuildTransform>%(RelativeDir)%(Filename).$(XmlTransformationCommonBuildTransformName)%(Extension)</CommonBuildTransform>
-			<CommonPublishTransform>%(RelativeDir)%(Filename).$(XmlTransformationCommonPublishTransformName)%(Extension)</CommonPublishTransform>
+			<GeneralBuildTransform>%(RelativeDir)%(Filename).$(XmlTransformationGeneralBuildTransformName)%(Extension)</GeneralBuildTransform>
+			<GeneralPublishTransform>%(RelativeDir)%(Filename).$(XmlTransformationGeneralPublishTransformName)%(Extension)</GeneralPublishTransform>
 			<!-- If the "Source" is not a project relative path it must be an absolute path. -->
 			<Source>%(RelativeDir)%(Filename).$(XmlTransformationSourceName)%(Extension)</Source>
 		</XmlTransformationMap>
