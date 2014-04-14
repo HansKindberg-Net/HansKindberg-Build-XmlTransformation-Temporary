@@ -13,10 +13,8 @@
 		<XmlTransformationExcludeFilesDependentUponByFileName Condition="$(XmlTransformationExcludeFilesDependentUponByFileName) == ''">False</XmlTransformationExcludeFilesDependentUponByFileName>
 		<XmlTransformationGeneralBuildTransformName Condition="$(XmlTransformationGeneralBuildTransformName) == ''">Build</XmlTransformationGeneralBuildTransformName>
 		<XmlTransformationGeneralPublishTransformName Condition="$(XmlTransformationGeneralPublishTransformName) == ''">Publish</XmlTransformationGeneralPublishTransformName>
-		<!-- Output path to use for transformed App.config. -->
-		<XmlTransformationIntermediate Condition="$(XmlTransformationIntermediate) == ''">$(IntermediateOutputPath)XmlTransformation\</XmlTransformationIntermediate>
 		<!-- High, Normal or Low -->
-		<XmlTransformationLogImportance Condition="$(XmlTransformationLogImportance) == ''">High</XmlTransformationLogImportance>
+		<XmlTransformationLogImportance Condition="$(XmlTransformationLogImportance) == ''">Normal</XmlTransformationLogImportance>
 		<XmlTransformationSourceName Condition="$(XmlTransformationSourceName) == ''">Template</XmlTransformationSourceName>
 		<!-- Error, Message or Warning -->
 		<XmlTransformationValidationMode Condition="$(XmlTransformationValidationMode) == ''">Warning</XmlTransformationValidationMode>

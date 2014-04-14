@@ -5,6 +5,8 @@
 		<IsWebApplicationProject Condition="$(IsWebApplicationProject) == ''">False</IsWebApplicationProject>
 	</PropertyGroup>
 	<PropertyGroup>
+		<!-- Output path to use for transformed App.config. -->
+		<XmlTransformationIntermediate Condition="$(XmlTransformationIntermediate) == ''">$(IntermediateOutputPath)XmlTransformation\</XmlTransformationIntermediate>
 		<!-- For webapplication projects we want the destination directory to be an empty string. -->
 		<XmlTransformationOnBuildDestinationDirectory Condition="$(XmlTransformationOnBuildDestinationDirectory) == '' And $(IsWebApplicationProject) == 'False'">$(OutDir)</XmlTransformationOnBuildDestinationDirectory>
 	</PropertyGroup>
@@ -91,16 +93,19 @@
 			<_AppConfigToTransformOnBuild Include="@(XmlFileToTransformOnBuild)" Condition="%(IsAppConfig) == 'true'" />
 		</ItemGroup>
 		<PropertyGroup>
-			<AppConfig Condition="$(_AppConfigToTransformOnBuild) != ''">$(XmlTransformationIntermediate)App.config</AppConfig>
+			<AppConfig Condition="@(_AppConfigToTransformOnBuild) != ''">$(XmlTransformationIntermediate)App.config</AppConfig>
 		</PropertyGroup>
-	
-	
-		
-	
-	
-		
-			
-			
+
+
+
+
+
+
+
+		<Message
+	Importance="high"
+	Text="------------------------------------------- _AppConfigToTransformOnBuild = '@(_AppConfigToTransformOnBuild)'"
+		/>	
 			
 		<Message
 			Importance="high"
@@ -117,6 +122,21 @@
 		<CollectXmlFilesToTransformOnPublishBuildDependsOn></CollectXmlFilesToTransformOnPublishBuildDependsOn>
 	</PropertyGroup>
 	<Target Name="CollectXmlFilesToTransformOnPublishBuild" DependsOnTargets="$(CollectXmlFilesToTransformOnPublishBuildDependsOn)">
+
+
+
+
+		<Message
+			Importance="high"
+			Text="------------------------------------------- FilesForPackagingFromProject = '%(FilesForPackagingFromProject.Identity)'"
+		/>
+
+
+
+
+
+
+
 		<CollectBuildTransformation
 			DestinationDirectory="$(TransformWebConfigIntermediateLocation)\transformed"
 			ExcludeFilesDependentUpon="$(XmlTransformationExcludeFilesDependentUpon)"
