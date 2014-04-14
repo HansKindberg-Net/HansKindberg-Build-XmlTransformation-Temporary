@@ -10,7 +10,6 @@
 		<!-- For webapplication projects we want the destination directory to be an empty string. -->
 		<XmlTransformationOnBuildDestinationDirectory Condition="$(XmlTransformationOnBuildDestinationDirectory) == '' And $(IsWebApplicationProject) == 'False'">$(OutDir)</XmlTransformationOnBuildDestinationDirectory>
 	</PropertyGroup>
-	<UsingTask AssemblyFile="$(MicrosoftWebPublishingTasksAssemblyFile)" Condition="!$(IsWebApplicationProject)" TaskName="Microsoft.Web.Publishing.Tasks.TransformXml" />
 	<PropertyGroup>
 		<BuildDependsOn Condition="$(TransformOnBuild)">
 			$(BuildDependsOn);
@@ -26,7 +25,7 @@
 	<Target Name="CollectFilesForProfileTransformWebConfigs" DependsOnTargets="$(CollectFilesForProfileTransformWebConfigsDependsOn)" Condition="'$(CollectFilesForProfileTransformWebConfigs)' != 'false'">
 		<ItemGroup>
 			<ProfileWebConfigsToTransform Include="@(XmlFileToTransformOnPublishProfile)">
-				<TransformFile>%(Transform)</TransformFile>
+				<TransformFile>%(FirstTransform)</TransformFile>
 				<TransformFileFolder>$(ProfileTransformWebConfigIntermediateLocation)\assist</TransformFileFolder>
 				<TransformOriginalFolder>$(ProfileTransformWebConfigIntermediateLocation)\original</TransformOriginalFolder>
 				<TransformOutputFile>%(Destination)</TransformOutputFile>
@@ -45,7 +44,7 @@
 	<Target Name="CollectWebConfigsToTransform" DependsOnTargets="$(CollectWebConfigsToTransformDependsOn)" Condition="'$(CollectWebConfigsToTransform)' != 'false'">
 		<ItemGroup>
 			<WebConfigsToTransform Include="@(XmlFileToTransformOnPublishBuild)">
-				<TransformFile>%(Transform)</TransformFile>
+				<TransformFile>%(FirstTransform)</TransformFile>
 				<TransformFileFolder>$(TransformWebConfigIntermediateLocation)\assist</TransformFileFolder>
 				<TransformOriginalFolder>$(TransformWebConfigIntermediateLocation)\original</TransformOriginalFolder>
 				<TransformOutputFile>%(Destination)</TransformOutputFile>
@@ -167,6 +166,91 @@
 			<Output TaskParameter="FilesToTransform" ItemName="XmlFileToTransformOnPublishProfile" />
 		</CollectPublishTransformation>
 	</Target>
+
+
+
+
+
+	<Target Name="AfterPostProfileTransformWebConfig">
+		<Message
+			Importance="$(MessageImportance)"
+			Text="Target AfterPostProfileTransformWebConfig"
+		/>
+	</Target>
+	<Target Name="AfterPostTransformWebConfig">
+		<Message
+			Importance="$(MessageImportance)"
+			Text="Target AfterPostTransformWebConfig"
+		/>
+	</Target>
+
+
+	
+	
+	
+	
+	<PropertyGroup>
+		<ProfileTransformWebConfigDependsOn>
+			$(ProfileTransformWebConfigDependsOn);
+			AfterPostProfileTransformWebConfig;
+		</ProfileTransformWebConfigDependsOn>
+	</PropertyGroup>
+	<Target
+		Name="ProfileTransformWebConfigCore"
+		Condition="@(ProfileWebConfigsToTransform) != '' And $(ProfileTransformWebConfigEnabled) And !$(UseParameterizeToProfileTransformWebConfig)"
+		DependsOnTargets="$(ProfileTransformWebConfigCoreDependsOn)"
+		Inputs="@(ProfileWebConfigsToTransform);%(Transforms)"
+		Outputs="$(_ProfileWebConfigTransformOutput)"
+	>
+		<HansKindberg.Build.XmlTransformation.Tasks.TransformXml
+			Condition="!%(Exclude)"
+			Destination="%(Destination)"
+			Source="@(ProfileWebConfigsToTransform)"
+			SourceRootPath="$(WebPublishPipelineSourceRootDirectory)"
+			StackTrace="$(ProfileTransformWebConfigStackTraceEnabled)"
+			TransformRootPath="$(WebPublishPipelineTransformRootDirectory)"
+			Transforms="%(Transforms)"
+		/>
+	</Target>
+	<PropertyGroup>
+		<TransformWebConfigDependsOn>
+			$(TransformWebConfigDependsOn);
+			AfterPostTransformWebConfig;
+		</TransformWebConfigDependsOn>
+	</PropertyGroup>
+	<Target
+		Name="TransformWebConfigCore"
+		Condition="@(WebConfigsToTransform)!='' And $(TransformWebConfigEnabled) And !$(UseParameterizeToTransformWebConfig)"
+		DependsOnTargets="$(TransformWebConfigCoreDependsOn)"
+		Inputs="@(WebConfigsToTransform);%(Transforms)"
+		Outputs="$(_WebConfigTransformOutput)"
+	>
+		<HansKindberg.Build.XmlTransformation.Tasks.TransformXml
+			Condition="!%(Exclude)"
+			Destination="%(Destination)"
+			Source="@(WebConfigsToTransform)"
+			SourceRootPath="$(WebPublishPipelineSourceRootDirectory)"
+			StackTrace="$(TransformWebConfigStackTraceEnabled)"
+			TransformRootPath="$(WebPublishPipelineTransformRootDirectory)"
+			Transforms="%(Transforms)"
+		/>
+	</Target>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<PropertyGroup>
 		<TransformXmlFilesDependsOn>
 			CollectXmlFilesToTransformOnBuild;

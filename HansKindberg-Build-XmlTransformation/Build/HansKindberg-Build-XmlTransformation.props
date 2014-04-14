@@ -19,11 +19,6 @@
 		<!-- Error, Message or Warning -->
 		<XmlTransformationValidationMode Condition="$(XmlTransformationValidationMode) == ''">Warning</XmlTransformationValidationMode>
 	</PropertyGroup>
-	<PropertyGroup>
-		<MicrosoftWebPublishingTasksAssemblyFile Condition="$(MicrosoftWebPublishingTasksAssemblyFile) == ''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v12.0\Web\Microsoft.Web.Publishing.Tasks.dll</MicrosoftWebPublishingTasksAssemblyFile>
-		<MicrosoftWebPublishingTasksAssemblyFile Condition="!Exists('$(MicrosoftWebPublishingTasksAssemblyFile)')">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v11.0\Web\Microsoft.Web.Publishing.Tasks.dll</MicrosoftWebPublishingTasksAssemblyFile>
-		<MicrosoftWebPublishingTasksAssemblyFile Condition="!Exists('$(MicrosoftWebPublishingTasksAssemblyFile)')">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll</MicrosoftWebPublishingTasksAssemblyFile>
-	</PropertyGroup>
 	<ItemGroup Condition="@(XmlFileExtension) == ''">
 		<!-- Case-insensitive -->
 		<XmlFileExtension Include=".config" />
@@ -40,4 +35,5 @@
 	</ItemDefinitionGroup>
 	<UsingTask AssemblyFile="HansKindberg.Build.XmlTransformation.Tasks.dll" TaskName="HansKindberg.Build.XmlTransformation.Tasks.CollectBuildTransformation" />
 	<UsingTask AssemblyFile="HansKindberg.Build.XmlTransformation.Tasks.dll" TaskName="HansKindberg.Build.XmlTransformation.Tasks.CollectPublishTransformation" />
+	<UsingTask AssemblyFile="HansKindberg.Build.XmlTransformation.Tasks.dll" TaskName="HansKindberg.Build.XmlTransformation.Tasks.TransformXml" />
 </Project>

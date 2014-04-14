@@ -21,6 +21,7 @@
 	<Target Name="CopyReferencedAssemblies">
 		<ItemGroup>
 			<AssemblyReference Include="$(HansKindbergBuildXmlTransformationTasksAssemblyFile)" />
+			<AssemblyReference Include="$(MicrosoftWebXdtAssemblyFile)" />
 			<AssemblyReference Include="$(SystemIOAbstractionsAssemblyFile)" />
 		</ItemGroup>
 		<Copy

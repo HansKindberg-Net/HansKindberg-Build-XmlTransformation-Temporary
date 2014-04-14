@@ -2,7 +2,8 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<Import Project="..\..\Build\Package-Build.props" />
 	<PropertyGroup>
-		<HansKindbergBuildXmlTransformationTasksAssemblyFile Condition="$(HansKindbergBuildXmlTransformationTasksAssemblyFile) == ''">$(NuGetPackagesDirectory)HansKindberg.Build.XmlTransformation.Tasks.1.0.0-alpha-0\lib\net35\HansKindberg.Build.XmlTransformation.Tasks.dll</HansKindbergBuildXmlTransformationTasksAssemblyFile>
-		<SystemIOAbstractionsAssemblyFile Condition="$(SystemIOAbstractionsAssemblyFile) == ''">$(NuGetPackagesDirectory)System.IO.Abstractions.1.4.0.83\lib\net35\System.IO.Abstractions.dll</SystemIOAbstractionsAssemblyFile>
+		<HansKindbergBuildXmlTransformationTasksAssemblyFile Condition="$(HansKindbergBuildXmlTransformationTasksAssemblyFile) == ''">$(NuGetPackagesDirectory)HansKindberg.Build.XmlTransformation.Tasks.1.0.0-alpha-0\lib\net40\HansKindberg.Build.XmlTransformation.Tasks.dll</HansKindbergBuildXmlTransformationTasksAssemblyFile>
+		<MicrosoftWebXdtAssemblyFile Condition="$(MicrosoftWebXdtAssemblyFile) == ''">$(NuGetPackagesDirectory)Microsoft.Web.Xdt.1.0.0\lib\net40\Microsoft.Web.XmlTransform.dll</MicrosoftWebXdtAssemblyFile>
+		<SystemIOAbstractionsAssemblyFile Condition="$(SystemIOAbstractionsAssemblyFile) == ''">$(NuGetPackagesDirectory)System.IO.Abstractions.1.4.0.84\lib\net35\System.IO.Abstractions.dll</SystemIOAbstractionsAssemblyFile>
 	</PropertyGroup>
 </Project>
