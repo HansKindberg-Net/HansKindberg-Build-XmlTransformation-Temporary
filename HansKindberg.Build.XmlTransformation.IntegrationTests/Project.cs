@@ -97,14 +97,14 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 			get { return this._projectDirectory; }
 		}
 
-		protected virtual string SolutionDirectory
-		{
-			get { return Solution.Directory; }
-		}
-
 		protected virtual string ProjectFile
 		{
 			get { return this._projectFile; }
+		}
+
+		protected virtual string SolutionDirectory
+		{
+			get { return Solution.Directory; }
 		}
 
 		#endregion
@@ -131,14 +131,6 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 			return this.Build(configuration, globalProperties, null);
 		}
 
-		protected virtual void SetDefaultGlobalProperties(IDictionary<string, string> globalProperties)
-		{
-			if (globalProperties == null)
-				throw new ArgumentNullException("globalProperties");
-
-			globalProperties["SolutionDir"] = this.SolutionDirectory;
-		}
-
 		protected virtual IBuildLog Build(Configuration? configuration, IDictionary<string, string> globalProperties, LoggerVerbosity? loggerVerbosity)
 		{
 			if(globalProperties == null)
@@ -148,7 +140,7 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 
 			this.SetDefaultGlobalProperties(globalProperties);
 
-			if (configuration.HasValue)
+			if(configuration.HasValue)
 				globalProperties["Configuration"] = configuration.ToString();
 
 			var logger = new Logger();
@@ -196,6 +188,14 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 				return;
 
 			Directory.Delete(path, true);
+		}
+
+		protected virtual void SetDefaultGlobalProperties(IDictionary<string, string> globalProperties)
+		{
+			if(globalProperties == null)
+				throw new ArgumentNullException("globalProperties");
+
+			globalProperties["SolutionDir"] = this.SolutionDirectory;
 		}
 
 		#endregion

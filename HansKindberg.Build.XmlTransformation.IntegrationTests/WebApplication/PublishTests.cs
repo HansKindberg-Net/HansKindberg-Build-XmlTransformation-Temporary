@@ -1,7 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
-using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,7 +8,11 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 	[TestClass]
 	public class PublishTests
 	{
+		#region Fields
+
 		private static readonly string _expectedPublishDirectory = Path.Combine(Solution.Directory, "HansKindberg.Build.XmlTransformation.IntegrationTests", @"WebApplication\Expected\Publish");
+
+		#endregion
 
 		#region Methods
 
@@ -20,7 +22,7 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 			// Production-profile
 			var publishProfile = PublishProfile.Production;
 			var expected = File.ReadAllText(Path.Combine(_expectedPublishDirectory, string.Format(CultureInfo.InvariantCulture, "Publish-{0}-Web.config", publishProfile)));
-			
+
 			var webApplicationProject = new WebApplicationProject();
 
 			webApplicationProject.Publish(publishProfile, LoggerVerbosity.Quiet);
