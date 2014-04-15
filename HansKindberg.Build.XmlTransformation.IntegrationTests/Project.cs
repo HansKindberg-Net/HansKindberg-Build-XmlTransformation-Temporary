@@ -18,7 +18,6 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 		private readonly string _projectDirectory;
 		private readonly string _projectFile;
 		private const string _testApplicationsDirectoryName = "Test-Applications";
-		private const string _toolsVersion = "12.0";
 
 		#endregion
 
@@ -70,7 +69,7 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 
 			this._buildPropertiesFile = buildPropertiesFile;
 			this._buildTargetsFile = buildTargetsFile;
-			this._projectDirectory = projectFile.DirectoryName;
+			this._projectDirectory = projectFile.DirectoryName + @"\";
 			this._projectFile = projectFile.FullName;
 		}
 
@@ -93,19 +92,19 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 			get { return this._outputDirectories; }
 		}
 
-		protected virtual string ProjectDirectory
+		public virtual string ProjectDirectory
 		{
 			get { return this._projectDirectory; }
+		}
+
+		protected virtual string SolutionDirectory
+		{
+			get { return Solution.Directory; }
 		}
 
 		protected virtual string ProjectFile
 		{
 			get { return this._projectFile; }
-		}
-
-		protected virtual string ToolsVersion
-		{
-			get { return _toolsVersion; }
 		}
 
 		#endregion
@@ -115,20 +114,6 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 		public virtual IBuildLog Build(Configuration configuration)
 		{
 			return this.Build(configuration, new Dictionary<string, string>());
-			//var globalProperties = new Dictionary<string, string>
-			//{
-			//	//{"DeleteExistingFiles", "True"},
-			//	{"Configuration", "Release"},
-			//	{"DeployOnBuild", "true"},
-			//	{"PublishProfileName", "Production"}
-			//	//{"WebPublishMethod", "FileSystem"},
-			//	//{"LastUsedBuildConfiguration", "Release"}
-			//	//{"LastUsedPlatform", "Any CPU"},
-			//	//{"FilesToIncludeForPublish", "OnlyFilesToRunTheApp"},
-			//	//{"DeployTarget", "Package"},
-			//	//{"PackageAsSingleFile", "True"},
-			//	//{"publishUrl", @"C:\Data\Projects\HansKindberg-Build-XmlTransformation-Temporary\Publish\Production"}
-			//};
 		}
 
 		protected virtual IBuildLog Build(IDictionary<string, string> globalProperties)
@@ -136,45 +121,58 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 			return this.Build(null, globalProperties);
 		}
 
-		public virtual IBuildLog Build(Configuration configuration, LoggerVerbosity loggerVerbosity)
+		public virtual IBuildLog Build(Configuration configuration, LoggerVerbosity? loggerVerbosity)
 		{
 			return this.Build(configuration, new Dictionary<string, string>(), loggerVerbosity);
 		}
 
 		protected virtual IBuildLog Build(Configuration? configuration, IDictionary<string, string> globalProperties)
 		{
-			return this.Build(configuration, globalProperties, LoggerVerbosity.Minimal);
+			return this.Build(configuration, globalProperties, null);
 		}
 
-		protected virtual IBuildLog Build(Configuration? configuration, IDictionary<string, string> globalProperties, LoggerVerbosity loggerVerbosity)
+		protected virtual void SetDefaultGlobalProperties(IDictionary<string, string> globalProperties)
+		{
+			if (globalProperties == null)
+				throw new ArgumentNullException("globalProperties");
+
+			globalProperties["SolutionDir"] = this.SolutionDirectory;
+		}
+
+		protected virtual IBuildLog Build(Configuration? configuration, IDictionary<string, string> globalProperties, LoggerVerbosity? loggerVerbosity)
 		{
 			if(globalProperties == null)
 				throw new ArgumentNullException("globalProperties");
 
 			this.ClearOutput();
 
-			if(configuration.HasValue)
+			this.SetDefaultGlobalProperties(globalProperties);
+
+			if (configuration.HasValue)
 				globalProperties["Configuration"] = configuration.ToString();
 
-			var logger = new Logger
-			{
-				Verbosity = loggerVerbosity
-			};
+			var logger = new Logger();
+
+			if(loggerVerbosity.HasValue)
+				logger.Verbosity = loggerVerbosity.Value;
 
 			var buildParameters = new BuildParameters
 			{
-				DetailedSummary = true,
+				DetailedSummary = false,
 				Loggers = new[] {logger}
 			};
 
-			var projectInstance = new ProjectInstance(this.ProjectFile, globalProperties, this.ToolsVersion);
+			var projectInstance = new ProjectInstance(this.ProjectFile, globalProperties, null);
 
-			//var targetsToBuild = new string[]{"Build"};
 			var targetsToBuild = new string[0];
 
 			var buildRequestData = new BuildRequestData(projectInstance, targetsToBuild);
 
-			BuildManager.DefaultBuildManager.Build(buildParameters, buildRequestData);
+			var buildManager = BuildManager.DefaultBuildManager;
+
+			buildManager.ResetCaches();
+
+			buildManager.Build(buildParameters, buildRequestData);
 
 			return logger;
 		}

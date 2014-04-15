@@ -1,15 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<BuildDependsOn>
-			$(BuildDependsOn);
-			Test;
-		</BuildDependsOn>
-	</PropertyGroup>
-	<Target Name="Test">
-		<Message
-			Importance="high"
-			Text="--- #### ----- ##### (WebApplication) - XmlTransformationOnBuildDestinationDirectory = $(XmlTransformationOnBuildDestinationDirectory)"
-		/>
-	</Target>
-</Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />

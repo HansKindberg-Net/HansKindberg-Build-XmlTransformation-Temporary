@@ -96,10 +96,10 @@
     <None Include="WebApplication\Build\Build.Log.targets" />
     <Content Include="WebApplication\Expected\Publish\Publish-Production-Web.config" />
     <Content Include="WebApplication\Expected\Publish\Publish-Test-Web.config" />
+    <Content Include="WebApplication\Expected\Build\Build-Release-Web.config" />
+    <Content Include="WebApplication\Expected\Build\Build-Debug-Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WebApplication\Expected\Build\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

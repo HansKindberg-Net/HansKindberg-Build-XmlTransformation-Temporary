@@ -8,6 +8,7 @@
 		<NuGetDirectoryName Condition="$(NuGetDirectoryName) == ''">.nuget</NuGetDirectoryName>
 		<NuGetPackagesDirectoryName Condition="$(NuGetPackagesDirectoryName) == ''">packages</NuGetPackagesDirectoryName>
 		<PropertiesDirectoryName Condition="$(PropertiesDirectoryName) == ''">Properties</PropertiesDirectoryName>
+		<RemovePreviousBeforeDeploy Condition="$(RemovePreviousBeforeDeploy) == ''">True</RemovePreviousBeforeDeploy>
 		<SigningDirectoryName Condition="$(SigningDirectoryName) == ''">Signing</SigningDirectoryName>
 		<TestApplicationsDirectory Condition="$(TestApplicationsDirectory) == ''">$(SolutionDir)Test-Applications\</TestApplicationsDirectory>
 		<TestSourceDirectoryPrefix Condition="$(TestSourceDirectoryPrefix) == ''">HansKindberg.Build.XmlTransformation.</TestSourceDirectoryPrefix>

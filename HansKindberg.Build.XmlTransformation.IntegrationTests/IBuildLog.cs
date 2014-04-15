@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace HansKindberg.Build.XmlTransformation.IntegrationTests
+﻿namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 {
 	public interface IBuildLog
 	{
 		#region Properties
 
-		IEnumerable<string> Messages { get; }
+		string Messages { get; }
 
 		#endregion
 

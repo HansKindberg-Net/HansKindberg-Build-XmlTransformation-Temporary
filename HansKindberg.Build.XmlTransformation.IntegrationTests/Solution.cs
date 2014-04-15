@@ -6,7 +6,7 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 	{
 		#region Fields
 
-		private static readonly string _directory = new DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
+		private static readonly string _directory = new DirectoryInfo(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + @"\";
 
 		#endregion
 

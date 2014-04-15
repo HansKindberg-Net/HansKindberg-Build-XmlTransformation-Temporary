@@ -16,6 +16,26 @@
 			TransformXmlFiles;
 		</BuildDependsOn>
 	</PropertyGroup>
+	<Target Name="AfterPostProfileTransformWebConfig">
+		<GetPublishingLocalizedString
+			ArgumentCount="3"
+			Arguments="@(ProfileWebConfigsToTransform->'%(Destination)');%(TransformsExceptFirst); %(Destination)"
+			Condition="@(ProfileWebConfigsToTransform) != '' And !%(ProfileWebConfigsToTransform.Exclude) And Exists('%(ProfileWebConfigsToTransform.Destination)')"
+			ID="PublishLocalizedString_TransformConfigUsingTransformFileToTransformOutputFile"
+			Importance="High"
+			LogType="Message"
+		/>
+	</Target>
+	<Target Name="AfterPostTransformWebConfig">
+		<GetPublishingLocalizedString
+			ArgumentCount="3"
+			Arguments="@(WebConfigsToTransform->'%(Destination)');%(TransformsExceptFirst); %(Destination)"
+			Condition="@(WebConfigsToTransform) != '' And !%(WebConfigsToTransform.Exclude) And Exists('%(WebConfigsToTransform.Destination)')"
+			ID="PublishLocalizedString_TransformConfigUsingTransformFileToTransformOutputFile"
+			Importance="High"
+			LogType="Message"
+		/>
+	</Target>
 	<PropertyGroup>
 		<CollectFilesForProfileTransformWebConfigsDependsOn>
 			CollectXmlFilesToTransformOnPublishProfile;
@@ -71,71 +91,11 @@
 		>
 			<Output TaskParameter="FilesToTransform" ItemName="XmlFileToTransformOnBuild" />
 		</CollectBuildTransformation>
-		
-		
-		
-			
-			
-			
-		<Message
-			Importance="high"
-			Text="------------------------------------------- (before) AppConfig = '$(AppConfig)'"
-		/>
-		
-		
-		
-		
-		
-			
-		
-		<ItemGroup>
-			<_AppConfigToTransformOnBuild Include="@(XmlFileToTransformOnBuild)" Condition="%(IsAppConfig) == 'true'" />
-		</ItemGroup>
-		<PropertyGroup>
-			<AppConfig Condition="@(_AppConfigToTransformOnBuild) != ''">$(XmlTransformationIntermediate)App.config</AppConfig>
-		</PropertyGroup>
-
-
-
-
-
-
-
-		<Message
-	Importance="high"
-	Text="------------------------------------------- _AppConfigToTransformOnBuild = '@(_AppConfigToTransformOnBuild)'"
-		/>	
-			
-		<Message
-			Importance="high"
-			Text="------------------------------------------- (after) AppConfig = '$(AppConfig)'"
-		/>
-			
-			
-			
-			
-			
-			
 	</Target>
 	<PropertyGroup>
 		<CollectXmlFilesToTransformOnPublishBuildDependsOn></CollectXmlFilesToTransformOnPublishBuildDependsOn>
 	</PropertyGroup>
 	<Target Name="CollectXmlFilesToTransformOnPublishBuild" DependsOnTargets="$(CollectXmlFilesToTransformOnPublishBuildDependsOn)">
-
-
-
-
-		<Message
-			Importance="high"
-			Text="------------------------------------------- FilesForPackagingFromProject = '%(FilesForPackagingFromProject.Identity)'"
-		/>
-
-
-
-
-
-
-
 		<CollectBuildTransformation
 			DestinationDirectory="$(TransformWebConfigIntermediateLocation)\transformed"
 			ExcludeFilesDependentUpon="$(XmlTransformationExcludeFilesDependentUpon)"
@@ -166,29 +126,6 @@
 			<Output TaskParameter="FilesToTransform" ItemName="XmlFileToTransformOnPublishProfile" />
 		</CollectPublishTransformation>
 	</Target>
-
-
-
-
-
-	<Target Name="AfterPostProfileTransformWebConfig">
-		<Message
-			Importance="$(MessageImportance)"
-			Text="Target AfterPostProfileTransformWebConfig"
-		/>
-	</Target>
-	<Target Name="AfterPostTransformWebConfig">
-		<Message
-			Importance="$(MessageImportance)"
-			Text="Target AfterPostTransformWebConfig"
-		/>
-	</Target>
-
-
-	
-	
-	
-	
 	<PropertyGroup>
 		<ProfileTransformWebConfigDependsOn>
 			$(ProfileTransformWebConfigDependsOn);
@@ -205,11 +142,16 @@
 		<HansKindberg.Build.XmlTransformation.Tasks.TransformXml
 			Condition="!%(Exclude)"
 			Destination="%(Destination)"
+			LogImportance="Low"
 			Source="@(ProfileWebConfigsToTransform)"
 			SourceRootPath="$(WebPublishPipelineSourceRootDirectory)"
 			StackTrace="$(ProfileTransformWebConfigStackTraceEnabled)"
 			TransformRootPath="$(WebPublishPipelineTransformRootDirectory)"
 			Transforms="%(Transforms)"
+		/>
+		<Message
+			Importance="$(LogImportanceWhenActuallyTransformationTakingPlace)"
+			Text="$(TransformationTakingPlace) Transforming %(ProfileWebConfigsToTransform.Identity) using %(ProfileWebConfigsToTransform.Transforms) into %(ProfileWebConfigsToTransform.Destination)."
 		/>
 	</Target>
 	<PropertyGroup>
@@ -228,29 +170,18 @@
 		<HansKindberg.Build.XmlTransformation.Tasks.TransformXml
 			Condition="!%(Exclude)"
 			Destination="%(Destination)"
+			LogImportance="Low"
 			Source="@(WebConfigsToTransform)"
 			SourceRootPath="$(WebPublishPipelineSourceRootDirectory)"
 			StackTrace="$(TransformWebConfigStackTraceEnabled)"
 			TransformRootPath="$(WebPublishPipelineTransformRootDirectory)"
 			Transforms="%(Transforms)"
 		/>
+		<Message
+			Importance="$(LogImportanceWhenActuallyTransformationTakingPlace)"
+			Text="$(TransformationTakingPlace) Transforming %(WebConfigsToTransform.Identity) using %(WebConfigsToTransform.Transforms) into %(WebConfigsToTransform.Destination)."
+		/>
 	</Target>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	<PropertyGroup>
 		<TransformXmlFilesDependsOn>
 			CollectXmlFilesToTransformOnBuild;
@@ -258,31 +189,27 @@
 	</PropertyGroup>
 	<Target
 		Name="TransformXmlFiles"
+		BeforeTargets="_CopyAppConfigFile"
 		DependsOnTargets="$(TransformXmlFilesDependsOn)"
 	>
-		<!--
-		<TransformXml
-			Condition="%(XmlFileToTransformOnBuild.PreTransform) != ''"
-			Destination="%(XmlFileToTransformOnBuild.Destination)"
-			Source="%(XmlFileToTransformOnBuild.PreTransformSource)"
-			Transform="%(XmlFileToTransformOnBuild.PreTransform)"
+		<HansKindberg.Build.XmlTransformation.Tasks.TransformXml
+			Condition="$(TransformOnBuild) And @(XmlFileToTransformOnBuild) != ''"
+			Destination="%(Destination)"
+			LogImportance="High"
+			Source="@(XmlFileToTransformOnBuild)"
+			Transforms="%(Transforms)"
 		/>
-		-->
-		<Message
-			Condition="%(XmlFileToTransformOnBuild.PreTransform) != ''"
-			Importance="$(MessageImportance)"
-			Text="Pre-transformed %(XmlFileToTransformOnBuild.PreTransformSource) using %(XmlFileToTransformOnBuild.PreTransform) into %(XmlFileToTransformOnBuild.Destination)."
-		/>
-		<!--
-		<TransformXml
-			Destination="%(XmlFileToTransformOnBuild.Destination)"
-			Source="%(XmlFileToTransformOnBuild.Identity)"
-			Transform="%(XmlFileToTransformOnBuild.Transform)"
-		/>
-		-->
-		<Message
-			Importance="$(MessageImportance)"
-			Text="Transformed %(XmlFileToTransformOnBuild.Identity) using %(XmlFileToTransformOnBuild.Transform) into %(XmlFileToTransformOnBuild.Destination)."
-		/>
+		<ItemGroup>
+			<_AppConfigToTransformOnBuild Include="@(XmlFileToTransformOnBuild)" Condition="%(IsAppConfig) == 'true'" />
+		</ItemGroup>
+		<PropertyGroup Condition="@(_AppConfigToTransformOnBuild) != ''">
+			<AppConfig>$(XmlTransformationIntermediate)App.config</AppConfig>
+		</PropertyGroup>
+		<ItemGroup Condition="@(_AppConfigToTransformOnBuild) != ''">
+			<AppConfigWithTargetPath Remove="@(AppConfigWithTargetPath)" />
+			<AppConfigWithTargetPath Include="$(AppConfig)">
+				<TargetPath>$(TargetFileName).config</TargetPath>
+			</AppConfigWithTargetPath>
+		</ItemGroup>
 	</Target>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using Microsoft.Build.Framework;
 
 namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 {
@@ -20,7 +21,7 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 
 		#region Methods
 
-		protected virtual Configuration GetConfiguration(PublishProfile publishProfile)
+		public virtual Configuration GetConfiguration(PublishProfile publishProfile)
 		{
 			return Configuration.Release;
 		}
@@ -32,18 +33,20 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 
 		public virtual IBuildLog Publish(PublishProfile publishProfile)
 		{
+			return this.Publish(publishProfile, null);
+		}
+
+		public virtual IBuildLog Publish(PublishProfile publishProfile, LoggerVerbosity? loggerVerbosity)
+		{
 			var globalProperties = new Dictionary<string, string>
 			{
+				{"AutoParameterizationWebConfigConnectionStrings", "False"},
 				{"DeployOnBuild", "True"},
 				{"PublishProfileName", publishProfile.ToString()},
 				{"UseMsdeployExe", "True"}
 			};
 
-			//globalProperties.Add("DeployTarget", "Package");
-			//globalProperties.Add("FilesToIncludeForPublish", "OnlyFilesToRunTheApp");
-			//globalProperties.Add("PackageAsSingleFile", "True");
-
-			return this.Build(this.GetConfiguration(publishProfile), globalProperties);
+			return this.Build(this.GetConfiguration(publishProfile), globalProperties, loggerVerbosity);
 		}
 
 		#endregion

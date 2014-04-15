@@ -2,9 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<!-- High, Normal or Low -->
-		<MessageImportance Condition="$(MessageImportance) == ''">High</MessageImportance>
+		<LogImportanceWhenActuallyTransformationTakingPlace Condition="$(LogImportanceWhenActuallyTransformationTakingPlace) == ''">High</LogImportanceWhenActuallyTransformationTakingPlace>
 		<!-- To set a more suitable name for xml-transformation, not only web-config transformation. The original value is "ProfileTransformWebConfig". -->
 		<ProfileTransformWebConfigIntermediateOutput Condition="'$(ProfileTransformWebConfigIntermediateOutput)'==''">ProfileXmlTransformation</ProfileTransformWebConfigIntermediateOutput>
+		<TransformationTakingPlace Condition="$(TransformationTakingPlace) == ''">Transformation is executing because earlier transformation does not exist or is not up to date.</TransformationTakingPlace>
 		<TransformOnBuild Condition="$(TransformOnBuild) == ''">True</TransformOnBuild>
 		<!-- To set a more suitable name for xml-transformation, not only web-config transformation. The original value is "TransformWebConfig". -->
 		<TransformWebConfigIntermediateOutput Condition="'$(TransformWebConfigIntermediateOutput)'==''">XmlTransformation</TransformWebConfigIntermediateOutput>

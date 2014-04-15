@@ -10,6 +10,10 @@
 		<ItemGroup>
 			<ClassLibraryFile Include="$(ClassLibrarySourceDirectory)**\*.*" Exclude="$(ClassLibrarySourceDirectory)bin\**\*.*;$(ClassLibrarySourceDirectory)obj\**\*.*" />
 		</ItemGroup>
+		<RemoveDir
+			Condition="$(RemovePreviousBeforeDeploy)"
+			Directories="$(ClassLibraryDirectory)"
+		/>
 		<Copy
 			Condition="Exists('$(ClassLibrarySourceDirectory)')"
 			DestinationFiles="@(ClassLibraryFile->'$(ClassLibraryDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
@@ -25,6 +29,10 @@
 		<ItemGroup>
 			<CodeAnalysisFile Include="$(CodeAnalysisSourceDirectory)**\*.*" />
 		</ItemGroup>
+		<RemoveDir
+			Condition="$(RemovePreviousBeforeDeploy)"
+			Directories="$(CodeAnalysisDirectory)"
+		/>
 		<Copy
 			Condition="Exists('$(CodeAnalysisSourceDirectory)')"
 			DestinationFiles="@(CodeAnalysisFile->'$(CodeAnalysisDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
@@ -40,6 +48,10 @@
 		<ItemGroup>
 			<ConsoleApplicationFile Include="$(ConsoleApplicationSourceDirectory)**\*.*" Exclude="$(ConsoleApplicationSourceDirectory)bin\**\*.*;$(ConsoleApplicationSourceDirectory)obj\**\*.*" />
 		</ItemGroup>
+		<RemoveDir
+			Condition="$(RemovePreviousBeforeDeploy)"
+			Directories="$(ConsoleApplicationDirectory)"
+		/>
 		<Copy
 			Condition="Exists('$(ConsoleApplicationSourceDirectory)')"
 			DestinationFiles="@(ConsoleApplicationFile->'$(ConsoleApplicationDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
@@ -55,6 +67,10 @@
 		<ItemGroup>
 			<NuGetFile Include="$(NuGetSourceDirectory)**\*.*" />
 		</ItemGroup>
+		<RemoveDir
+			Condition="$(RemovePreviousBeforeDeploy)"
+			Directories="$(NuGetDirectory)"
+		/>
 		<Copy
 			Condition="Exists('$(NuGetSourceDirectory)')"
 			DestinationFiles="@(NuGetFile->'$(NuGetDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
@@ -70,6 +86,10 @@
 		<ItemGroup>
 			<NuGetPackagesFile Include="$(NuGetPackagesSourceDirectory)**\*.*" />
 		</ItemGroup>
+		<RemoveDir
+			Condition="$(RemovePreviousBeforeDeploy)"
+			Directories="$(NuGetPackagesDirectory)"
+		/>
 		<Copy
 			Condition="Exists('$(NuGetPackagesSourceDirectory)')"
 			DestinationFiles="@(NuGetPackagesFile->'$(NuGetPackagesDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
@@ -85,6 +105,10 @@
 		<ItemGroup>
 			<PropertiesFile Include="$(PropertiesSourceDirectory)**\*.*" />
 		</ItemGroup>
+		<RemoveDir
+			Condition="$(RemovePreviousBeforeDeploy)"
+			Directories="$(PropertiesDirectory)"
+		/>
 		<Copy
 			Condition="Exists('$(PropertiesSourceDirectory)')"
 			DestinationFiles="@(PropertiesFile->'$(PropertiesDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
@@ -100,6 +124,10 @@
 		<ItemGroup>
 			<SigningFile Include="$(SigningSourceDirectory)**\*.*" />
 		</ItemGroup>
+		<RemoveDir
+			Condition="$(RemovePreviousBeforeDeploy)"
+			Directories="$(SigningDirectory)"
+		/>
 		<Copy
 			Condition="Exists('$(SigningSourceDirectory)')"
 			DestinationFiles="@(SigningFile->'$(SigningDirectory)%(RecursiveDir)%(Filename)%(Extension)')"
@@ -115,6 +143,10 @@
 		<ItemGroup>
 			<WebApplicationFile Include="$(WebApplicationSourceDirectory)**\*.*" Exclude="$(WebApplicationSourceDirectory)bin\**\*.*;$(WebApplicationSourceDirectory)obj\**\*.*" />
 		</ItemGroup>
+		<RemoveDir
+			Condition="$(RemovePreviousBeforeDeploy)"
+			Directories="$(WebApplicationDirectory)"
+		/>
 		<Copy
 			Condition="Exists('$(WebApplicationSourceDirectory)')"
 			DestinationFiles="@(WebApplicationFile->'$(WebApplicationDirectory)%(RecursiveDir)%(Filename)%(Extension)')"

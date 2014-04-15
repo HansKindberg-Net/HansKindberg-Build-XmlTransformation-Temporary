@@ -2,6 +2,11 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<!-- High, Normal or Low -->
-		<XmlTransformationLogImportance Condition="$(XmlTransformationLogImportance) == ''">High</XmlTransformationLogImportance>
+		<XmlTransformationLogImportance Condition="$(XmlTransformationLogImportance) == ''">Low</XmlTransformationLogImportance>
 	</PropertyGroup>
+	<ItemGroup>
+		<XmlTransformationMap Include="App.config">
+			<Source></Source>
+		</XmlTransformationMap>
+	</ItemGroup>
 </Project>

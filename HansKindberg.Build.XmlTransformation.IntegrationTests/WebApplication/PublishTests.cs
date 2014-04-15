@@ -1,75 +1,43 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using Microsoft.Build.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 {
 	[TestClass]
 	public class PublishTests
 	{
-		//private static readonly string _projectFullPath = Path.Combine(Solution.Path, @"HansKindberg.Build.XmlTransformation.WebApplication\HansKindberg.Build.XmlTransformation.WebApplication.csproj");
-		//private const string _toolsVersion = "12.0";
-
-		//[TestMethod]
-		//public void Test()
-		//{
-		//	var logger = new Logger
-		//	{
-		//		Verbosity = LoggerVerbosity.Diagnostic
-		//	};
-
-		//	var buildParameters = new BuildParameters
-		//	{
-		//		DetailedSummary = true,
-		//		Loggers = new[] { logger }
-		//	};
-
-		//	var globalProperties = new Dictionary<string, string>
-		//	{
-		//		{"Configuration", "Release"},
-		//		{"DeployOnBuild", "true"},
-		//		{"PublishProfileName", "Production"}
-		//	};
-
-		//	//globalProperties.Add("FilesToIncludeForPublish", "OnlyFilesToRunTheApp");
-
-		//	//globalProperties.Add("DeployTarget", "Package");
-		//	//globalProperties.Add("PackageAsSingleFile", "True");
-
-		//	globalProperties.Add("UseMsdeployExe", "True");
-
-		//	var projectInstance = new ProjectInstance(_projectFullPath, globalProperties, _toolsVersion);
-
-		//	var targetsToBuild = new string[0];
-
-		//	var buildRequestData = new BuildRequestData(projectInstance, targetsToBuild);
-
-		//	var buildResult = BuildManager.DefaultBuildManager.Build(buildParameters, buildRequestData);
-
-		//	List<string> failures = new List<string>();
-
-		//	foreach(var message in logger.Messages)
-		//	{
-		//		if(message.ToUpperInvariant().Contains("FAIL"))
-		//			failures.Add(message);
-		//	}
-
-		//	Assert.IsNotNull(buildResult);
-
-		//	Assert.Inconclusive("Message count: " + logger.Messages.Count());
-		//}
+		private static readonly string _expectedPublishDirectory = Path.Combine(Solution.Directory, "HansKindberg.Build.XmlTransformation.IntegrationTests", @"WebApplication\Expected\Publish");
 
 		#region Methods
 
 		[TestMethod]
-		public void Test2()
+		public void Publish_ShouldTransformCorrectly()
 		{
-			//Assert.IsNotNull(new WebApplicationProject());
-			//new WebApplicationProject().DeployForTest();
+			// Production-profile
+			var publishProfile = PublishProfile.Production;
+			var expected = File.ReadAllText(Path.Combine(_expectedPublishDirectory, string.Format(CultureInfo.InvariantCulture, "Publish-{0}-Web.config", publishProfile)));
+			
+			var webApplicationProject = new WebApplicationProject();
 
-			var buildLog = new WebApplicationProject().Publish(PublishProfile.Production);
+			webApplicationProject.Publish(publishProfile, LoggerVerbosity.Quiet);
 
-			Assert.IsNotNull(buildLog);
+			var actual = File.ReadAllText(Path.Combine(webApplicationProject.GetPublishDirectory(webApplicationProject.GetConfiguration(publishProfile)), "Web.config"));
 
-			//Assert.Inconclusive("Message count: " + buildLog.Messages.Count());
+			Assert.AreEqual(expected, actual);
+
+			// Test-profile
+			publishProfile = PublishProfile.Test;
+			expected = File.ReadAllText(Path.Combine(_expectedPublishDirectory, string.Format(CultureInfo.InvariantCulture, "Publish-{0}-Web.config", publishProfile)));
+
+			webApplicationProject.Publish(publishProfile, LoggerVerbosity.Quiet);
+
+			actual = File.ReadAllText(Path.Combine(webApplicationProject.GetPublishDirectory(webApplicationProject.GetConfiguration(publishProfile)), "Web.config"));
+
+			Assert.AreEqual(expected, actual);
 		}
 
 		#endregion

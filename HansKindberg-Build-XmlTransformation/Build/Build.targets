@@ -40,6 +40,7 @@
 		<ItemGroup Condition="@(_PackageContent) == ''">
 			<_PackageContent Include="Build\HansKindberg-Build-XmlTransformation.*" />
 			<_PackageContent Condition="!Exists('$(_PackageDestinationFolder)HansKindberg.Build.XmlTransformation.Tasks.dll')" Include="Build\HansKindberg.Build.XmlTransformation.Tasks.dll" />
+			<_PackageContent Condition="!Exists('$(_PackageDestinationFolder)Microsoft.Web.XmlTransform.dll')" Include="Build\Microsoft.Web.XmlTransform.dll" />
 			<_PackageContent Condition="!Exists('$(_PackageDestinationFolder)System.IO.Abstractions.dll')" Include="Build\System.IO.Abstractions.dll" />
 		</ItemGroup>
 		<Copy

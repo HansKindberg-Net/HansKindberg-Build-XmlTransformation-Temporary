@@ -72,6 +72,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{C2C12052
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg-Build-XmlTransformation-Content", "HansKindberg-Build-XmlTransformation-Content\HansKindberg-Build-XmlTransformation-Content.csproj", "{4B89CE29-39A3-491F-A52D-C22187FED30C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B532BF45-EFB9-44AB-AAAB-3A8222FEB52F} = {B532BF45-EFB9-44AB-AAAB-3A8222FEB52F}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{CA61DEF4-F9C4-49C2-B783-38F0B327C11A}"
 EndProject

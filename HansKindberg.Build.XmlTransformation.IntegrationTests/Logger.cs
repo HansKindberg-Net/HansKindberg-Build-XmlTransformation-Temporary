@@ -1,50 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Build.Framework;
+using Microsoft.Build.Logging;
 
 namespace HansKindberg.Build.XmlTransformation.IntegrationTests
 {
-	public class Logger : ILogger, IBuildLog
+	public class Logger : ConsoleLogger, IBuildLog
 	{
 		#region Fields
 
-		private readonly IList<string> _messages = new List<string>();
+		private string _messages = string.Empty;
+
+		#endregion
+
+		#region Constructors
+
+		public Logger() : base(LoggerVerbosity.Minimal)
+		{
+			this.WriteHandler = this.Write;
+		}
 
 		#endregion
 
 		#region Properties
 
-		public virtual IEnumerable<string> Messages
+		public virtual string Messages
 		{
-			get { return this._messages.ToArray(); }
+			get { return this._messages; }
 		}
-
-		public virtual string Parameters { get; set; }
-		public virtual LoggerVerbosity Verbosity { get; set; }
 
 		#endregion
 
 		#region Methods
 
-		public virtual void Initialize(IEventSource eventSource)
+		protected virtual string RemoveMultipleWhiteSpaces(string message)
 		{
-			if(eventSource == null)
-				throw new ArgumentNullException("eventSource");
-
-			eventSource.AnyEventRaised += (sender, buildEventArgs) => this._messages.Add(buildEventArgs.Message);
-			eventSource.ErrorRaised += (sender, buildErrorEventArgs) =>
+			while(true)
 			{
-				this._messages.Add("Build error: " + buildErrorEventArgs.Message);
-				//buildErrorEventArgs.
-			};
-		}
+				if(!message.Contains("  "))
+					break;
 
-		public virtual void Shutdown() {}
+				message = message.Replace("  ", " ");
+			}
+
+			return message;
+		}
 
 		public override string ToString()
 		{
 			return string.Join(Environment.NewLine, this.Messages);
+		}
+
+		public virtual void Write(string message)
+		{
+			if(message != null && message.EndsWith(" = ", StringComparison.OrdinalIgnoreCase))
+				message = this.RemoveMultipleWhiteSpaces(message);
+
+			this._messages += message;
 		}
 
 		#endregion
