@@ -13,11 +13,6 @@
 			CopyReferencedAssemblies;
 		</CreateNuGetPackageDependsOn>
 	</PropertyGroup>
-	<PropertyGroup>
-		<DeployPackageContentToPackageDirectoryDependsOn>
-			CollectAssemblyInformation;
-		</DeployPackageContentToPackageDirectoryDependsOn>
-	</PropertyGroup>
 	<Target Name="CopyReferencedAssemblies">
 		<ItemGroup>
 			<AssemblyReference Include="$(HansKindbergBuildXmlTransformationTasksAssemblyFile)" />
@@ -33,6 +28,11 @@
 			Text="Copying '%(AssemblyReference.Identity)' to 'Build'."
 		/>
 	</Target>
+	<PropertyGroup>
+		<DeployPackageContentToPackageDirectoryDependsOn>
+			CollectAssemblyInformation;
+		</DeployPackageContentToPackageDirectoryDependsOn>
+	</PropertyGroup>
 	<Target Name="DeployPackageContentToPackageDirectory" DependsOnTargets="$(DeployPackageContentToPackageDirectoryDependsOn)">
 		<PropertyGroup>
 			<_PackageDestinationFolder Condition="@(_PackageDestinationFolder) == ''">$(NuGetPackagesDirectory)HansKindberg-Build-XmlTransformation\build\</_PackageDestinationFolder>
