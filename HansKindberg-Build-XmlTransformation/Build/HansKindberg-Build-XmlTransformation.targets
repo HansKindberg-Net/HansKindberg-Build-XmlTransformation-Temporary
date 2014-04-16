@@ -19,8 +19,8 @@
 	<Target Name="AfterPostProfileTransformWebConfig">
 		<GetPublishingLocalizedString
 			ArgumentCount="3"
-			Arguments="@(ProfileWebConfigsToTransform->'%(Destination)');%(TransformsExceptFirst); %(Destination)"
-			Condition="@(ProfileWebConfigsToTransform) != '' And !%(ProfileWebConfigsToTransform.Exclude) And Exists('%(ProfileWebConfigsToTransform.Destination)')"
+			Arguments="@(ProfileWebConfigsToTransform->'%(Destination)');%(TransformsExceptFirst);%(Destination)"
+			Condition="@(ProfileWebConfigsToTransform) != '' And !%(ProfileWebConfigsToTransform.Exclude) And Exists('%(ProfileWebConfigsToTransform.Destination)') And %(ProfileWebConfigsToTransform.TransformsExceptFirst) != ''"
 			ID="PublishLocalizedString_TransformConfigUsingTransformFileToTransformOutputFile"
 			Importance="High"
 			LogType="Message"
@@ -29,8 +29,8 @@
 	<Target Name="AfterPostTransformWebConfig">
 		<GetPublishingLocalizedString
 			ArgumentCount="3"
-			Arguments="@(WebConfigsToTransform->'%(Destination)');%(TransformsExceptFirst); %(Destination)"
-			Condition="@(WebConfigsToTransform) != '' And !%(WebConfigsToTransform.Exclude) And Exists('%(WebConfigsToTransform.Destination)')"
+			Arguments="@(WebConfigsToTransform->'%(Destination)');%(TransformsExceptFirst);%(Destination)"
+			Condition="@(WebConfigsToTransform) != '' And !%(WebConfigsToTransform.Exclude) And Exists('%(WebConfigsToTransform.Destination)') And %(WebConfigsToTransform.TransformsExceptFirst) != ''"
 			ID="PublishLocalizedString_TransformConfigUsingTransformFileToTransformOutputFile"
 			Importance="High"
 			LogType="Message"
