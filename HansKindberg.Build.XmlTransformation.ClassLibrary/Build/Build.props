@@ -8,5 +8,8 @@
 		<XmlTransformationMap Include="App.config">
 			<Source></Source>
 		</XmlTransformationMap>
+		<XmlTransformationMap Include="Xml\Another-File.xml">
+			<Source></Source>
+		</XmlTransformationMap>
 	</ItemGroup>
 </Project>

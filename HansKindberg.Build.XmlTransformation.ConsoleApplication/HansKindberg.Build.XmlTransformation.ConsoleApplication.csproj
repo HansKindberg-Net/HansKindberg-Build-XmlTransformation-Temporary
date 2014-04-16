@@ -67,6 +67,36 @@
     </None>
     <None Include="Build\Build.props" />
     <None Include="Build\Build.targets" />
+    <Content Include="Xml\Another-File.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Xml\Another-File.Build.xml">
+      <DependentUpon>Another-File.xml</DependentUpon>
+    </None>
+    <None Include="Xml\Another-File.Debug.xml">
+      <DependentUpon>Another-File.Build.xml</DependentUpon>
+    </None>
+    <None Include="Xml\Another-File.Production.xml">
+      <DependentUpon>Another-File.Publish.xml</DependentUpon>
+    </None>
+    <None Include="Xml\Another-File.Publish.xml">
+      <DependentUpon>Another-File.xml</DependentUpon>
+    </None>
+    <None Include="Xml\Another-File.Release.xml">
+      <DependentUpon>Another-File.Build.xml</DependentUpon>
+    </None>
+    <None Include="Xml\Another-File.Test.xml">
+      <DependentUpon>Another-File.Publish.xml</DependentUpon>
+    </None>
+    <Content Include="Xml\File.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Xml\File.Debug.xml">
+      <DependentUpon>File.xml</DependentUpon>
+    </None>
+    <None Include="Xml\File.Release.xml">
+      <DependentUpon>File.xml</DependentUpon>
+    </None>
     <None Include="App.config" />
     <None Include="App.Build.config">
       <DependentUpon>App.config</DependentUpon>
