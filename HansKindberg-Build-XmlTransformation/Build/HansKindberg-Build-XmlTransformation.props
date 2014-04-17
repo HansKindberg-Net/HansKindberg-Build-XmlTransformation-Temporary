@@ -15,7 +15,7 @@
 		<XmlTransformationGeneralBuildTransformName Condition="$(XmlTransformationGeneralBuildTransformName) == ''">Build</XmlTransformationGeneralBuildTransformName>
 		<XmlTransformationGeneralPublishTransformName Condition="$(XmlTransformationGeneralPublishTransformName) == ''">Publish</XmlTransformationGeneralPublishTransformName>
 		<!-- High, Normal or Low -->
-		<XmlTransformationLogImportance Condition="$(XmlTransformationLogImportance) == ''">Normal</XmlTransformationLogImportance>
+		<XmlTransformationLogImportance Condition="$(XmlTransformationLogImportance) == ''">Low</XmlTransformationLogImportance>
 		<XmlTransformationSourceName Condition="$(XmlTransformationSourceName) == ''">Template</XmlTransformationSourceName>
 		<!-- Error, Message or Warning -->
 		<XmlTransformationValidationMode Condition="$(XmlTransformationValidationMode) == ''">Warning</XmlTransformationValidationMode>

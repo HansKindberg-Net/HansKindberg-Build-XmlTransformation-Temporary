@@ -98,6 +98,7 @@
     <Content Include="WebApplication\Expected\Publish\Publish-Test-Web.config" />
     <Content Include="WebApplication\Expected\Build\Build-Release-Web.config" />
     <Content Include="WebApplication\Expected\Build\Build-Debug-Web.config" />
+    <Content Include="WebApplication\Reset\Reset-Web.config" />
   </ItemGroup>
   <ItemGroup />
   <Choose>

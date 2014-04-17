@@ -5,15 +5,20 @@
 		<IsWebApplicationProject Condition="$(IsWebApplicationProject) == ''">False</IsWebApplicationProject>
 	</PropertyGroup>
 	<PropertyGroup>
+		<IsWebPublish Condition="$(IsWebPublish) == ''">False</IsWebPublish>
+		<IsWebPublish Condition="$(IsWebApplicationProject) And $(WebPublishMethod) != ''">True</IsWebPublish>
 		<!-- Output path to use for transformed App.config. -->
 		<XmlTransformationIntermediate Condition="$(XmlTransformationIntermediate) == ''">$(IntermediateOutputPath)XmlTransformation\</XmlTransformationIntermediate>
 		<!-- For webapplication projects we want the destination directory to be an empty string. -->
 		<XmlTransformationOnBuildDestinationDirectory Condition="$(XmlTransformationOnBuildDestinationDirectory) == '' And $(IsWebApplicationProject) == 'False'">$(OutDir)</XmlTransformationOnBuildDestinationDirectory>
 	</PropertyGroup>
 	<PropertyGroup>
-		<BuildDependsOn Condition="$(TransformOnBuild)">
+		<TransformOnBuild Condition="$(IsWebPublish)">False</TransformOnBuild>
+	</PropertyGroup>
+	<PropertyGroup>
+		<BuildDependsOn>
 			$(BuildDependsOn);
-			TransformXmlFiles;
+			TransformXmlFiles
 		</BuildDependsOn>
 	</PropertyGroup>
 	<Target Name="AfterPostProfileTransformWebConfig">
@@ -39,7 +44,7 @@
 	<PropertyGroup>
 		<CollectFilesForProfileTransformWebConfigsDependsOn>
 			CollectXmlFilesToTransformOnPublishProfile;
-			$(CollectFilesForProfileTransformWebConfigsDependsOn);
+			$(CollectFilesForProfileTransformWebConfigsDependsOn)
 		</CollectFilesForProfileTransformWebConfigsDependsOn>
 	</PropertyGroup>
 	<Target Name="CollectFilesForProfileTransformWebConfigs" DependsOnTargets="$(CollectFilesForProfileTransformWebConfigsDependsOn)" Condition="'$(CollectFilesForProfileTransformWebConfigs)' != 'false'">
@@ -58,7 +63,7 @@
 	<PropertyGroup>
 		<CollectWebConfigsToTransformDependsOn>
 			CollectXmlFilesToTransformOnPublishBuild;
-			$(CollectWebConfigsToTransformDependsOn);
+			$(CollectWebConfigsToTransformDependsOn)
 		</CollectWebConfigsToTransformDependsOn>
 	</PropertyGroup>
 	<Target Name="CollectWebConfigsToTransform" DependsOnTargets="$(CollectWebConfigsToTransformDependsOn)" Condition="'$(CollectWebConfigsToTransform)' != 'false'">
@@ -80,6 +85,7 @@
 	<Target Name="CollectXmlFilesToTransformOnBuild" DependsOnTargets="$(CollectXmlFilesToTransformOnBuildDependsOn)">
 		<CollectBuildTransformation
 			AppConfigDestinationDirectory="$(XmlTransformationIntermediate)"
+			Condition="$(TransformOnBuild)"
 			DestinationDirectory="$(XmlTransformationOnBuildDestinationDirectory)"
 			ExcludeFilesDependentUpon="$(XmlTransformationExcludeFilesDependentUpon)"
 			ExcludeFilesDependentUponByFileName="$(XmlTransformationExcludeFilesDependentUponByFileName)"
@@ -127,9 +133,42 @@
 		</CollectPublishTransformation>
 	</Target>
 	<PropertyGroup>
+		<CoreTransformXmlFilesDependsOn>
+			CollectXmlFilesToTransformOnBuild
+		</CoreTransformXmlFilesDependsOn>
+	</PropertyGroup>
+	<Target
+		Name="CoreTransformXmlFiles"
+		DependsOnTargets="$(CoreTransformXmlFilesDependsOn)"
+	>
+		<Error
+			Condition="!$(TransformOnBuild)"
+			Text="The target 'CoreTransformXmlFiles' should not execute if TransformOnBuild = false."
+		/>
+		<HansKindberg.Build.XmlTransformation.Tasks.TransformXml
+			Condition="$(TransformOnBuild) And @(XmlFileToTransformOnBuild) != ''"
+			Destination="%(Destination)"
+			LogImportance="High"
+			Source="@(XmlFileToTransformOnBuild)"
+			Transforms="%(Transforms)"
+		/>
+		<ItemGroup Condition="$(TransformOnBuild)">
+			<_AppConfigToTransformOnBuild Include="@(XmlFileToTransformOnBuild)" Condition="%(IsAppConfig) == 'true'" />
+		</ItemGroup>
+		<PropertyGroup Condition="$(TransformOnBuild) And @(_AppConfigToTransformOnBuild) != ''">
+			<AppConfig>$(XmlTransformationIntermediate)App.config</AppConfig>
+		</PropertyGroup>
+		<ItemGroup Condition="$(TransformOnBuild) And @(_AppConfigToTransformOnBuild) != ''">
+			<AppConfigWithTargetPath Remove="@(AppConfigWithTargetPath)" />
+			<AppConfigWithTargetPath Include="$(AppConfig)">
+				<TargetPath>$(TargetFileName).config</TargetPath>
+			</AppConfigWithTargetPath>
+		</ItemGroup>
+	</Target>
+	<PropertyGroup>
 		<ProfileTransformWebConfigDependsOn>
 			$(ProfileTransformWebConfigDependsOn);
-			AfterPostProfileTransformWebConfig;
+			AfterPostProfileTransformWebConfig
 		</ProfileTransformWebConfigDependsOn>
 	</PropertyGroup>
 	<Target
@@ -157,7 +196,7 @@
 	<PropertyGroup>
 		<TransformWebConfigDependsOn>
 			$(TransformWebConfigDependsOn);
-			AfterPostTransformWebConfig;
+			AfterPostTransformWebConfig
 		</TransformWebConfigDependsOn>
 	</PropertyGroup>
 	<Target
@@ -183,33 +222,13 @@
 		/>
 	</Target>
 	<PropertyGroup>
-		<TransformXmlFilesDependsOn>
-			CollectXmlFilesToTransformOnBuild;
+		<TransformXmlFilesDependsOn Condition="$(TransformOnBuild)">
+			CoreTransformXmlFiles
 		</TransformXmlFilesDependsOn>
 	</PropertyGroup>
 	<Target
 		Name="TransformXmlFiles"
 		BeforeTargets="_CopyAppConfigFile"
 		DependsOnTargets="$(TransformXmlFilesDependsOn)"
-	>
-		<HansKindberg.Build.XmlTransformation.Tasks.TransformXml
-			Condition="$(TransformOnBuild) And @(XmlFileToTransformOnBuild) != ''"
-			Destination="%(Destination)"
-			LogImportance="High"
-			Source="@(XmlFileToTransformOnBuild)"
-			Transforms="%(Transforms)"
-		/>
-		<ItemGroup>
-			<_AppConfigToTransformOnBuild Include="@(XmlFileToTransformOnBuild)" Condition="%(IsAppConfig) == 'true'" />
-		</ItemGroup>
-		<PropertyGroup Condition="@(_AppConfigToTransformOnBuild) != ''">
-			<AppConfig>$(XmlTransformationIntermediate)App.config</AppConfig>
-		</PropertyGroup>
-		<ItemGroup Condition="@(_AppConfigToTransformOnBuild) != ''">
-			<AppConfigWithTargetPath Remove="@(AppConfigWithTargetPath)" />
-			<AppConfigWithTargetPath Include="$(AppConfig)">
-				<TargetPath>$(TargetFileName).config</TargetPath>
-			</AppConfigWithTargetPath>
-		</ItemGroup>
-	</Target>
+	/>
 </Project>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-	<Transform value="File.Release.config" xdt:Locator="Match(key)" xdt:Transform="Replace" />
-	<Build-Transform value="File.Release.config" xdt:Transform="Insert" />
+	<Transform value="Xml\File.Release.config" xdt:Transform="Replace" />
+	<Build-Transform value="Xml\File.Release.config" xdt:Transform="Insert" />
 </root>

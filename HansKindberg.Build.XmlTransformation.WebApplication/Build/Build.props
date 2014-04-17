@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<!-- High, Normal or Low -->
-		<XmlTransformationLogImportance Condition="$(XmlTransformationLogImportance) == ''">Low</XmlTransformationLogImportance>
-	</PropertyGroup>
 	<ItemGroup>
 		<XmlTransformationMap Include="Web.config">
 			<Source>$(SolutionDir)packages\SomePackage\Configuration\Web.Template.config</Source>
+		</XmlTransformationMap>
+		<XmlTransformationMap Include="Xml\Another-File.xml">
+			<Source>Xml\Another-File.xml</Source>
 		</XmlTransformationMap>
 	</ItemGroup>
 </Project>
