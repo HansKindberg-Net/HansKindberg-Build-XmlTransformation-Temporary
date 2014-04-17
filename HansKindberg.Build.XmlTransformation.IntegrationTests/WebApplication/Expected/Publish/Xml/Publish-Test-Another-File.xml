@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<XmlFile value="Xml\Another-File.xml" />
+	<Transform value="Xml\Another-File.Test.config"/>
+	<General-Build-Transform value="Xml\Another-File.Build.config"/>
+	<Build-Transform value="Xml\Another-File.Release.config"/>
+	<General-Publish-Transform value="Xml\Another-File.Publish.config"/>
+	<Publish-Transform value="Xml\Another-File.Test.config"/>
+</root>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<XmlFile value="Xml\File.xml" />
+	<Transform value="Xml\File.Release.config"/>
+	<Build-Transform value="Xml\File.Release.config"/>
+</root>

@@ -94,10 +94,18 @@
     <None Include="Build\Build.targets" />
     <None Include="WebApplication\Build\Build.Log.props" />
     <None Include="WebApplication\Build\Build.Log.targets" />
+    <Content Include="WebApplication\Expected\Build\Xml\Build-Release-Another-File.xml" />
+    <Content Include="WebApplication\Expected\Build\Xml\Build-Release-File.xml" />
+    <Content Include="WebApplication\Expected\Build\Xml\Build-Debug-Another-File.xml" />
+    <Content Include="WebApplication\Expected\Build\Xml\Build-Debug-File.xml" />
     <Content Include="WebApplication\Expected\Publish\Publish-Production-Web.config" />
     <Content Include="WebApplication\Expected\Publish\Publish-Test-Web.config" />
     <Content Include="WebApplication\Expected\Build\Build-Release-Web.config" />
     <Content Include="WebApplication\Expected\Build\Build-Debug-Web.config" />
+    <Content Include="WebApplication\Expected\Publish\Xml\Publish-Production-Another-File.xml" />
+    <Content Include="WebApplication\Expected\Publish\Xml\Publish-Test-Another-File.xml" />
+    <Content Include="WebApplication\Expected\Publish\Xml\Publish-Production-File.xml" />
+    <Content Include="WebApplication\Expected\Publish\Xml\Publish-Test-File.xml" />
     <Content Include="WebApplication\Reset\Reset-Web.config" />
   </ItemGroup>
   <ItemGroup />

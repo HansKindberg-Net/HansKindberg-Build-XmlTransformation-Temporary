@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,30 +18,35 @@ namespace HansKindberg.Build.XmlTransformation.IntegrationTests.WebApplication
 
 		#region Methods
 
-		[TestMethod]
-		public void Build_ShouldTransformCorrectly()
+		private static void BuildShouldTransformCorrectly(IEnumerable<string> files, Configuration configuration)
 		{
-			// Debug
-			var configuration = Configuration.Debug;
-			var expected = File.ReadAllText(Path.Combine(_expectedBuildDirectory, string.Format(CultureInfo.InvariantCulture, "Build-{0}-Web.config", configuration)));
+			if(files == null)
+				throw new ArgumentNullException("files");
 
 			var webApplicationProject = new WebApplicationProject();
 
 			webApplicationProject.Build(configuration, LoggerVerbosity.Quiet);
 
-			var actual = File.ReadAllText(Path.Combine(webApplicationProject.ProjectDirectory, "Web.config"));
+			foreach(var file in files)
+			{
+				var relativeExpectedDirectory = Path.GetDirectoryName(file) ?? string.Empty;
+				var exprectedFileName = Path.GetFileName(file);
 
-			Assert.AreEqual(expected, actual);
+				var expected = File.ReadAllText(Path.Combine(_expectedBuildDirectory, relativeExpectedDirectory, string.Format(CultureInfo.InvariantCulture, "Build-{0}-{1}", configuration, exprectedFileName)));
+				var actual = File.ReadAllText(Path.Combine(webApplicationProject.ProjectDirectory, file));
 
-			// Release
-			configuration = Configuration.Release;
-			expected = File.ReadAllText(Path.Combine(_expectedBuildDirectory, string.Format(CultureInfo.InvariantCulture, "Build-{0}-Web.config", configuration)));
+				Assert.AreEqual(expected, actual);
+			}
+		}
 
-			webApplicationProject.Build(configuration, LoggerVerbosity.Quiet);
+		[TestMethod]
+		public void Build_ShouldTransformCorrectly()
+		{
+			var files = new[] {@"Xml\Another-File.xml", @"Xml\File.xml", "Web.config"};
 
-			actual = File.ReadAllText(Path.Combine(webApplicationProject.ProjectDirectory, "Web.config"));
+			BuildShouldTransformCorrectly(files, Configuration.Debug);
 
-			Assert.AreEqual(expected, actual);
+			BuildShouldTransformCorrectly(files, Configuration.Release);
 		}
 
 		#endregion
